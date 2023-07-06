@@ -1,0 +1,180 @@
+val userAccounts: MutableList<Account> = mutableListOf()
+
+
+fun main() {
+    val shop = Shop()
+    val adminAccount = AdminAccount("admin", "admin", shop)
+    userAccounts.add(adminAccount)
+    val customerAccount = CustomerAccount("customer", "password", shop)
+    println("\u001B[36mBenutzer-Login oder Regestrierung:")
+    println("\u001B[36m1. Login")
+    println("\u001B[36m2. Regestrierung")
+    val input = readln().toIntOrNull()
+
+    when (input) {
+        1 -> {
+            val loggedInAccount = login()
+            if (loggedInAccount, shop)
+        } else {
+            println("Falscher Benutzername oder Passwort.Programm wird beendet.")
+        }
+    }
+        2 -> {
+            val registeredAccount = register()
+            if (registeredAccount != null) {
+                userAccounts.add(registeredAccount)
+                displayMenu(registeredAccount, shop)
+
+            } else {
+                println("Benutzerregestrierung fehlgeschlagen.Programm wird beendet.")
+            }
+    }
+    else -> {
+        println("Ungueltige Eingabe.Programm wird beendet.")
+    }
+    }
+    val loggedInAccount = Login()
+    if (loggedInAccount != null) {
+        displaayMenu(loggedInAccount, shop)
+    } else {
+        println("Falscher Benutzername oder Passwort.Programm wird beendet.")
+    }
+}
+fun login() : Account? {
+    println(
+        """
+                            #######       ###     #########  ########  #######  ##    ##  ########  ##########
+                            ##     ##    #####    ##     ##     ##     ##   ##  ##    ##  ##    ##  ##      ##
+                            ##     ##   ##   ##   ##     ##     ##     ##       ##    ##  ##    ##  ##      ##
+                            ##     ##  ##     ##  #########     ##     #######  ########  ##    ##  ##########
+                            ##     ##  #########  ##     ##     ##          ##  ##    ##  ##    ##  ##
+                            ##     ##  ##     ##  ##      ##    ##     ##   ##  ##    ##  ##    ##  ##
+                            #######    ##     ##  ##       ##   ##     #######  ##    ##  ########  ##        """
+
+    )
+
+
+    println("\u001B[36mBenutzer-Login:")
+    println("\u001B[36mBitte geben sie Ihren benutzernamen ein:")
+    val username = readln()
+    println("\u001B[36mBittegeben sie Ihr Passwort ein:")
+    val password = readln()
+    println("\001B[36mBitte geben sie Ihr Alter ein:")
+    val age = readln().toInt()
+
+    return when {
+        username == "admin" && password == "admin" -> AdminAccount("admin", "admin", shop())
+        username == "customer" && password == "password" && age <= 12 -> CustommerAccount(
+            "customer",
+            "password",
+            shop()
+        )
+
+        username == "customer" && password == "password" && age <= 12 -> Account("customer", "password", shop())
+        else -> null
+    }
+
+}
+fun register(): CustomerAccount? {
+    println("\u001B[36mBenutzerregistrierung:")
+    println("\u001B[36mBitte geben Sie einen Benutzernamen ein:")
+    val username = readln()
+    println("\u001B[36mBitte geben Sie ein Passwort ein:")
+    val password = readln()
+    println("\u001B[36mBitte geben Sie Ihr Alter ein:")
+    val age = readln().toInt()
+    if (age < 12) {
+        println("Sie müesssen mindestens 12 Jahre alt sein,um sich zu registrieren.")
+        return null
+    }
+    return CustomerAccount(username, password, shop)
+}
+fun displayMenu(account: Account, shop: Shop) {
+    println("\u001B[35mWillkommen, ${account.username}!\u001b[35m")
+    println("\u001b[36mBitte waehlen sie eine Option:\u001B[36m")
+    println("\u001b[37m1. Artikel hinzufuegen\u001B[37m")
+    println("\u001B[38m2. Warenkorb anzeigen\u001B[38m")
+    println("\u001B[34m3. Artikel zum Warenkorb hinzufuegen\u001B[34m")
+    println("\u001B[33m4. Bewertungen anzeigen\u001B[33m")
+    println("\u001B[32m5. Nach Preis\u001B[32m")
+    println("\u001B[39m6. Nach Alphabet\u001B[39m")
+    println("\u001B[35m7. Gutscheicode\u001B[35m")
+    println("\u001b[31m8. Beenden\u001B[31m")
+    val input = readln().toIntOrNull()
+    when (input) {
+        1 -> {
+            if (account is AdminAccount) {
+                account.addProduct()
+            } else {
+                println("Keine Berechtigung.Bitte waehlen Sie eine andere Option.")
+            }
+        }
+
+        2 -> {
+            if (account is CustomerAccount) {
+                account.Printcart()
+            } else {
+                println("Keine Berechtigung.Bitte waehlen Sie eine andere Option")
+            }
+        }
+
+        3 -> {
+            if (account is CustomerAccount) {
+                account.addProductToCart()
+            } else {
+                println("Keine Berechtigung. Bitte waehlen Sie")
+            }
+        }
+
+        4 -> {
+            shop.printProductReviews()
+        }
+
+        5 -> {
+            val sortedByPrice = shop.getProductsSortdeBayPriceAscending()
+            println("Verfuegbare Produkte nach Preis (aufsteigend):")
+            sortedByPrice.fprEach { product ->
+                println("Name: ${product.name}")
+                println("Preis: ${product.price}")
+                println("Kundenrezension: ${product.review}")
+                println("------------------------------")
+            }
+        }
+
+        6 -> {
+            val sortedAlphabetically = shop.getProductsSortedAlphabetically()
+            println("Verfuegbare Produkte alphabetisch sortiert:")
+            sortedAlphabetically.forEach { product ->
+                println("Name: ${product.name}")
+                println("Preis: ${product.price}")
+                println("Kundenrezension: ${product.review}")
+                println("------------------------------")
+            }
+        }
+
+        7 -> {
+            println("Das Programm wwird beendet.")
+            return
+        }
+
+        else -> {
+            println("Ungueltige Eingabe, Bitte waehlen Sie eine andere Option.")
+
+        }
+    }
+    displayMenu(account, shop)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
