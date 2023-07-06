@@ -1,19 +1,17 @@
-class CustomerAccount (username: String, password: String, shop: Shop) : Account(username, password, shop) {
+class CustomerAccount(username: String, password: String, shop: Shop) : Account(username, password, shop) {
     private val cart: MutableList<Product> = mutableListOf()
-
     fun addProductToCart() {
-        println("Artikel zum Warenkorb hinzufuegen:")
+        println("Artikel zum Warenkorb hinzufügen:")
         println("Bitte geben Sie den Namen des Produkts ein:")
         val productName = readln()
-        val product = this.shop.products.find { it.name == productName }
+        val product = shop.products.find { it.name == productName }
         if (product != null) {
             cart.add(product)
-            println("Das Produkt wird zum Warenkorb hinzugefügt")
-    } else {
-        println("Produkt nicht gefunden.Bitte geben Sie einen gueltigen Namen ein.") }
-}
-
-
+            println("Produkt erfolgreich zum Warenkorb hinzugefügt.")
+        } else {
+            println("Produkt nicht gefunden. Bitte geben Sie einen gültigen Namen ein.")
+        }
+    }
 
     fun printCart() {
         if (cart.isNotEmpty()) {
@@ -21,7 +19,7 @@ class CustomerAccount (username: String, password: String, shop: Shop) : Account
             for (product in cart) {
                 println("Name: ${product.name}")
                 println("Preis: ${product.price}")
-                println("----------------------------")
+                println("---------------------------")
             }
         } else {
             println("Der Warenkorb ist leer.")
