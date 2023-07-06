@@ -14,7 +14,8 @@ fun main() {
     when (input) {
         1 -> {
             val loggedInAccount = login()
-            if (loggedInAccount, shop)
+            if (loggedInAccount != null) {
+            displayMenu(loggedInAccount, shop)
         } else {
             println("Falscher Benutzername oder Passwort.Programm wird beendet.")
         }
@@ -33,9 +34,9 @@ fun main() {
         println("Ungueltige Eingabe.Programm wird beendet.")
     }
     }
-    val loggedInAccount = Login()
+    val loggedInAccount = login()
     if (loggedInAccount != null) {
-        displaayMenu(loggedInAccount, shop)
+        displayMenu(loggedInAccount, shop)
     } else {
         println("Falscher Benutzername oder Passwort.Programm wird beendet.")
     }
@@ -59,18 +60,15 @@ fun login() : Account? {
     val username = readln()
     println("\u001B[36mBittegeben sie Ihr Passwort ein:")
     val password = readln()
-    println("\001B[36mBitte geben sie Ihr Alter ein:")
+    println("\u001B[36mBitte geben sie Ihr Alter ein:")
     val age = readln().toInt()
 
     return when {
-        username == "admin" && password == "admin" -> AdminAccount("admin", "admin", shop())
-        username == "customer" && password == "password" && age <= 12 -> CustommerAccount(
-            "customer",
-            "password",
-            shop()
-        )
+        username == "admin" && password == "admin" -> AdminAccount("admin", "admin", Shop())
+        username == "customer" && password == "password" && age <= 12 -> CustomerAccount("customer", "password", Shop())
 
-        username == "customer" && password == "password" && age <= 12 -> Account("customer", "password", shop())
+
+        username == "customer" && password == "password" && age <= 12 -> Account("customer", "password", Shop())
         else -> null
     }
 
@@ -87,7 +85,7 @@ fun register(): CustomerAccount? {
         println("Sie müesssen mindestens 12 Jahre alt sein,um sich zu registrieren.")
         return null
     }
-    return CustomerAccount(username, password, shop)
+    return CustomerAccount(username, password, Shop())
 }
 fun displayMenu(account: Account, shop: Shop) {
     println("\u001B[35mWillkommen, ${account.username}!\u001b[35m")
@@ -112,7 +110,7 @@ fun displayMenu(account: Account, shop: Shop) {
 
         2 -> {
             if (account is CustomerAccount) {
-                account.Printcart()
+                account.printCart()
             } else {
                 println("Keine Berechtigung.Bitte waehlen Sie eine andere Option")
             }
@@ -131,9 +129,9 @@ fun displayMenu(account: Account, shop: Shop) {
         }
 
         5 -> {
-            val sortedByPrice = shop.getProductsSortdeBayPriceAscending()
+            val sortedByPrice  = shop.getProductsSortedByPriceAscending()
             println("Verfuegbare Produkte nach Preis (aufsteigend):")
-            sortedByPrice.fprEach { product ->
+            sortedByPrice.forEach(){ product ->
                 println("Name: ${product.name}")
                 println("Preis: ${product.price}")
                 println("Kundenrezension: ${product.review}")
@@ -142,7 +140,7 @@ fun displayMenu(account: Account, shop: Shop) {
         }
 
         6 -> {
-            val sortedAlphabetically = shop.getProductsSortedAlphabetically()
+            val sortedAlphabetically = shop.geetProductsSortedAlphabetically()
             println("Verfuegbare Produkte alphabetisch sortiert:")
             sortedAlphabetically.forEach { product ->
                 println("Name: ${product.name}")

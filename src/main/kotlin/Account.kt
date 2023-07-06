@@ -7,7 +7,7 @@ class CustomerAccount (username: String, password: String, shop: Shop) : Account
         val productName = readln()
         val product = shop.products.find { it.name == productName }
         if (product != null) {
-            card.add(product)
+            cart.add(product)
             println("Produkt nicht gefunden.Bitte geben Sie einen gueltigen Namen ein.")
         }
     }
