@@ -10,7 +10,7 @@ class AdminAccount(username: String, password: String, shop: Shop) : Account(use
         val review = readln()
         if (name!= null && price != null && review != null){
             val product = Product(name, price, review)
-            shop.addProduct(product)
+            this.shop.addProduct(product)
             println("Produkt erfolgreich hinzugefügt.")
         } else {
             println("Ungueltige Eingabe.Produkt konnte nicht hinzugefuegt werden.")

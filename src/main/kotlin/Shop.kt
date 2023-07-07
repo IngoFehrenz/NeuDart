@@ -3,9 +3,8 @@ class Shop {
 
     init {
         val product1 = Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger")
-        val product2 =
-            Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
-        val product3 = Product("Dart Matte", 14.99, "Transportkoffer fuer Dartpfeile")
+        val product2 = Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
+        val product3 = Product("Dartcase", 14.99, "Transportkoffer fuer Dartpfeile")
         val product4 = Product("Dartmatte", 29.99, "Rutschfeste Matte fuer praezises werfen.")
         val product5 = Product("Dart Flights(Set of 10)", 9.99, "Verschiedene Designs fuer Dartpfeile")
         val product6 = Product("Dart Shafts (Set of 5)", 25.99, "Ersatz-Schaefte für DartPfeile")
@@ -51,7 +50,7 @@ class Shop {
             println("-----------------------------")
         }
     }
-    fun getProductsSortedByPriceAscending() : List<Product>  {
+    fun getProductsSortedByPriceAscending(): List<Product>  {
           return products.sortedBy { it.price}
     }
     fun geetProductsSortedAlphabetically(): List<Product> {

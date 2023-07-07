@@ -6,6 +6,17 @@ fun main() {
     val adminAccount = AdminAccount("admin", "admin", shop)
     userAccounts.add(adminAccount)
     val customerAccount = CustomerAccount("customer", "password", shop)
+    println(
+        """
+                            #######       ###     #########  ########  #######  ##    ##  ########  ##########
+                            ##     ##    #####    ##     ##     ##     ##   ##  ##    ##  ##    ##  ##      ##
+                            ##     ##   ##   ##   ##     ##     ##     ##       ##    ##  ##    ##  ##      ##
+                            ##     ##  ##     ##  #########     ##     #######  ########  ##    ##  ##########
+                            ##     ##  #########  ##     ##     ##          ##  ##    ##  ##    ##  ##
+                            ##     ##  ##     ##  ##      ##    ##     ##   ##  ##    ##  ##    ##  ##
+                            #######    ##     ##  ##       ##   ##     #######  ##    ##  ########  ##        """
+
+    )
     println("\u001B[36mBenutzer-Login oder Regestrierung:")
     println("\u001B[36m1. Login")
     println("\u001B[36m2. Regestrierung")
@@ -97,7 +108,7 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[32m5. Nach Preis\u001B[32m")
             println("\u001B[39m6. Nach Alphabet\u001B[39m")
             println("\u001B[35m7. Sonderangebote\u001B[35m")
-            println("\u001B[35m8. Gutscheicode\u001B[35m")
+            println("\u001B[35m8. Gutscheincode\u001B[35m")
             println("\u001b[31m9. Beenden\u001B[31m")
             val input = readln().toIntOrNull()
             when (input) {
@@ -119,7 +130,7 @@ fun displayMenu(account: Account, shop: Shop) {
 
                 3 -> {
                     if (account is CustomerAccount) {
-                        account.addProductToCart(shop)
+                        account.addProductToCart()
                     } else {
                         println("Keine Berechtigung. Bitte waehlen Sie")
                     }
@@ -178,7 +189,7 @@ fun displayMenu(account: Account, shop: Shop) {
                 }
 
                 9 -> {
-                    println("Das Programm wwird beendet.")
+                    println("Das Programm wird beendet.")
                     return
                 }
 
@@ -205,7 +216,7 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[31m9. Beenden\u001B[31m")
             val input = readln().toIntOrNull()
             when (input) {
-                1 -> account.addProductToCart(shop)
+                1 -> account.addProductToCart()
                 2 -> account.printCart()
                 3 -> return
                 else -> println("Ungültige Eingabe.")
