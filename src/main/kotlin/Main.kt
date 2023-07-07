@@ -96,8 +96,9 @@ fun displayMenu(account: Account, shop: Shop) {
     println("\u001B[33m4. Bewertungen anzeigen\u001B[33m")
     println("\u001B[32m5. Nach Preis\u001B[32m")
     println("\u001B[39m6. Nach Alphabet\u001B[39m")
-    println("\u001B[35m7. Gutscheicode\u001B[35m")
-    println("\u001b[31m8. Beenden\u001B[31m")
+    println("\u001B[35m7. Sonderangebote\u001B[35m")
+    println("\u001B[35m8. Gutscheicode\u001B[35m")
+    println("\u001b[31m9. Beenden\u001B[31m")
     val input = readln().toIntOrNull()
     when (input) {
         1 -> {
@@ -149,8 +150,31 @@ fun displayMenu(account: Account, shop: Shop) {
                 println("------------------------------")
             }
         }
-
         7 -> {
+            println("Bitte geben sie den Namen des Produkts ein.")
+            val productName = readln()
+            println("Bitte geben Sie die Mindestmenge für das Sonderangebot ein:")
+            val quantity = readln().toIntOrNull()
+            if (productName != null && quantity != null) {
+                shop.addSpecialOffer(productName, quantity)
+                println("Sonderangebote erfolgreich hinzugefügt.")
+            } else {
+                println("Ungültige Eingabe.Sonderangebot konnte nicht hinzugefügt werde.")
+            }
+        }
+        8 -> {
+            println("Bitte geben Sie den Gutscheincode ein:")
+            val code = readln()
+            println("Bitte geben Sie den Rabatt in Prozent ein:")
+            val discount = readln().toDoubleOrNull()
+            if (code != null && discount != null) {
+                shop.addCoupnCode(code, discount)
+                println("Gutscheincode erfolgreich hinzugefügt.")
+            } else {
+                println("Ungültige Eingabe. Gutscheincode konnte nicht hinzugefügt werden.")
+            }
+        }
+        9 -> {
             println("Das Programm wwird beendet.")
             return
         }
@@ -175,4 +199,3 @@ fun displayMenu(account: Account, shop: Shop) {
 
 
 
-}
