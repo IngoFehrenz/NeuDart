@@ -59,7 +59,7 @@ class Shop {
     private val specialOffers: MutableMap<String, Int>   = mutableMapOf()
     private val couponCodes: MutableMap<String, Double> = mutableMapOf()
 
-    fun addSpecialOffer(productName: String, quantity:Int) {
+    fun addSpecialOffer(quantity: Int, productName: String) {
         specialOffers[productName] = quantity
     }
 

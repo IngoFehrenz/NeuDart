@@ -1,6 +1,4 @@
 val userAccounts: MutableList<Account> = mutableListOf()
-
-
 fun main() {
     val shop = Shop()
     val adminAccount = AdminAccount("admin", "admin", shop)
@@ -24,7 +22,7 @@ fun main() {
 
     when (input) {
         1 -> {
-            val loggedInAccount = login(shop)
+            val loggedInAccount = login()
             if (loggedInAccount != null) {
             displayMenu(loggedInAccount, shop)
         } else {
@@ -45,19 +43,19 @@ fun main() {
         println("Ungueltige Eingabe.Programm wird beendet.")
     }
     }
-    val loggedInAccount = login(shop)
+    val loggedInAccount = login()
     if (loggedInAccount != null) {
         displayMenu(loggedInAccount, shop)
     } else {
         println("Falscher Benutzername oder Passwort.Programm wird beendet.")
     }
 }
-fun login(shop: Shop): Account? {
+fun login(): Account? {
     println(
         """
                             #######       ###     #########  ########  #######  ##    ##  ########  ##########
-                            ##     ##    #####    ##     ##     ##     ##   ##  ##    ##  ##    ##  ##      ##
-                            ##     ##   ##   ##   ##     ##     ##     ##       ##    ##  ##    ##  ##      ##
+                            ##     ##    #####    ##      ##    ##     ##   ##  ##    ##  ##    ##  ##      ##
+                            ##     ##   ##   ##   ##      ##    ##     ##       ##    ##  ##    ##  ##      ##
                             ##     ##  ##     ##  #########     ##     #######  ########  ##    ##  ##########
                             ##     ##  #########  ##     ##     ##          ##  ##    ##  ##    ##  ##
                             ##     ##  ##     ##  ##      ##    ##     ##   ##  ##    ##  ##    ##  ##
@@ -100,23 +98,23 @@ fun displayMenu(account: Account, shop: Shop) {
     when (account) {
         is AdminAccount -> {
             println("\u001B[35mWillkommen, ${account.username}!\u001b[35m")
-            println("\u001b[36mBitte waehlen sie eine Option:\u001B[36m")
-            println("\u001b[37m1. Artikel hinzufuegen\u001B[37m")
+            println("\u001b[36mBitte wählen Sie eine Option:\u001B[36m")
+            println("\u001B[38m1. Produkt hinzufügen\u001B[38m")
             println("\u001B[38m2. Warenkorb anzeigen\u001B[38m")
-            println("\u001B[34m3. Artikel zum Warenkorb hinzufuegen\u001B[34m")
+            println("\u001B[34m3. Artikel zum Warenkorb hinzufügen\u001B[34m")
             println("\u001B[33m4. Bewertungen anzeigen\u001B[33m")
-            println("\u001B[32m5. Nach Preis\u001B[32m")
-            println("\u001B[39m6. Nach Alphabet\u001B[39m")
-            println("\u001B[35m7. Sonderangebote\u001B[35m")
-            println("\u001B[35m8. Gutscheincode\u001B[35m")
-            println("\u001b[31m9. Beenden\u001B[31m")
+            println("\u001B[32m5. Nach Preis sortieren\u001B[32m")
+            println("\u001B[39m6. Nach Alphabet sortieren\u001B[39m")
+            println("\u001B[35m7. Sonderangebote hinzufügen\u001B[35m")
+            println("\u001B[35m8. Gutscheincode hinzufügen\u001B[35m")
+            println("\u001b[31m9. Logout\u001B[31m")
             val input = readln().toIntOrNull()
             when (input) {
                 1 -> {
                     if (account is AdminAccount) {
                         account.addProduct()
                     } else {
-                        println("Keine Berechtigung.Bitte waehlen Sie eine andere Option.")
+                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
                     }
                 }
 
@@ -124,7 +122,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     if (account is CustomerAccount) {
                         account.printCart()
                     } else {
-                        println("Keine Berechtigung.Bitte waehlen Sie eine andere Option")
+                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
                     }
                 }
 
@@ -132,7 +130,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     if (account is CustomerAccount) {
                         account.addProductToCart()
                     } else {
-                        println("Keine Berechtigung. Bitte waehlen Sie")
+                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
                     }
                 }
 
@@ -142,8 +140,8 @@ fun displayMenu(account: Account, shop: Shop) {
 
                 5 -> {
                     val sortedByPrice = shop.getProductsSortedByPriceAscending()
-                    println("Verfuegbare Produkte nach Preis (aufsteigend):")
-                    sortedByPrice.forEach() { product ->
+                    println("Verfügbare Produkte nach Preis (aufsteigend):")
+                    sortedByPrice.forEach { product ->
                         println("Name: ${product.name}")
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
@@ -153,7 +151,7 @@ fun displayMenu(account: Account, shop: Shop) {
 
                 6 -> {
                     val sortedAlphabetically = shop.geetProductsSortedAlphabetically()
-                    println("Verfuegbare Produkte alphabetisch sortiert:")
+                    println("Verfügbare Produkte alphabetisch sortiert:")
                     sortedAlphabetically.forEach { product ->
                         println("Name: ${product.name}")
                         println("Preis: ${product.price}")
@@ -163,15 +161,15 @@ fun displayMenu(account: Account, shop: Shop) {
                 }
 
                 7 -> {
-                    println("Bitte geben sie den Namen des Produkts ein.")
+                    println("Bitte geben Sie den Namen des Produkts ein:")
                     val productName = readln()
                     println("Bitte geben Sie die Mindestmenge für das Sonderangebot ein:")
-                    val quantity = readln().toIntOrNull()
+                    val quantity = readln()?.toIntOrNull()
                     if (productName != null && quantity != null) {
-                        shop.addSpecialOffer(productName, quantity)
+                        shop.addSpecialOffer(quantity, productName)
                         println("Sonderangebote erfolgreich hinzugefügt.")
                     } else {
-                        println("Ungültige Eingabe.Sonderangebot konnte nicht hinzugefügt werde.")
+                        println("Ungültige Eingabe. Sonderangebot konnte nicht hinzugefügt werden.")
                     }
                 }
 
@@ -190,51 +188,83 @@ fun displayMenu(account: Account, shop: Shop) {
 
                 9 -> {
                     println("Das Programm wird beendet.")
-                    return
+                    login()
                 }
 
                 else -> {
-                    println("Ungueltige Eingabe, Bitte waehlen Sie eine andere Option.")
-
+                    println("Ungültige Eingabe. Bitte wählen Sie eine andere Option.")
                 }
             }
-            displayMenu(account, shop)
-
         }
 
         is CustomerAccount -> {
-            println("\u001B[35mWillkommen, ${account.username}!\u001B[35m")
-            println("\u001B[36mBitte wählen Sie eine Option:\u001B[36m")
-            println("\u001B[37m1. Artikel hinzufügen\u001B[37m")
-            println("\u001B[38m2. Warenkorb anzeigen\u001B[38m")
-            println("\u001B[34m3. Artikel zum Warenkorb hinzufügen\u001B[34m")
-            println("\u001B[33m4. Bewertungen anzeigen\u001B[33m")
-            println("\u001B[32m5. Nach Preis\u001B[32m")
-            println("\u001B[39m6. Nach Alphabet\u001B[31m")
-            println("\u001B[33m7. Sonderangebote\u001B[31m")
-            println("\u001B[35m8. Gutscheincode\u001B[35m")
-            println("\u001B[31m9. Beenden\u001B[31m")
+            println("\u001B[35m Willkommen, ${account.username}!\u001b[35m")
+            println("\u001b[36m Bitte wählen Sie eine Option:\u001B[36m")
+            println("\u001B[34m1. Artikel zum Warenkorb hinzufügen \u001B[34m")
+            println("\u001B[33m2. Warenkorb anzeigen \u001B[33m")
+            println("\u001B[33m3. Bewertungen anzeigen\u001B[33m")
+            println("\u001B[39m4. Nach Preis sortieren\u001B[39m")
+            println("\u001B[35m5. Nach Alphabet sortieren\u001B[35m")
+            println("\u001b[31m6. Logout\u001B[31m")
             val input = readln().toIntOrNull()
             when (input) {
-                1 -> account.addProductToCart()
-                2 -> account.printCart()
-                3 -> return
-                else -> println("Ungültige Eingabe.")
-            }
+                1 -> {
 
-            displayMenu(account, shop)
+                    account.addProductToCart()
+                }
+
+                2 -> {
+                    account.printCart()
+
+                }
+
+                3 -> {
+                    shop.printProductReviews()
+                }
+
+                4 -> {
+                    val sortedByPrice = shop.getProductsSortedByPriceAscending()
+                    println("Verfügbare Produkte nach Preis (aufsteigend):")
+                    sortedByPrice.forEach { product ->
+                        println("Name: ${product.name}")
+                        println("Preis: ${product.price}")
+                        println("Kundenrezension: ${product.review}")
+                        println("------------------------------")
+                    }
+                }
+
+                5 -> {
+                    val sortedAlphabetically = shop.geetProductsSortedAlphabetically()
+                    println("Verfügbare Produkte alphabetisch sortiert:")
+                    sortedAlphabetically.forEach { product ->
+                        println("Name: ${product.name}")
+                        println("Preis: ${product.price}")
+                        println("Kundenrezension: ${product.review}")
+                        println("------------------------------")
+                    }
+                }
+
+                6 -> {
+                    println("Das Programm wird beendet.")
+                    login()
+                }
+
+                else -> {
+                    println("Ungültige Eingabe. Bitte wählen Sie eine andere Option.")
+                }
+            }
         }
 
+        else -> {
+            println("Ungültiger Account. Bitte erneut einloggen.")
+            login()
+        }
     }
+    displayMenu(account, shop)
+
+
+
 }
-
-
-
-
-
-
-
-
 
 
 
