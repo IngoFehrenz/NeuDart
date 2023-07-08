@@ -58,6 +58,7 @@ class Shop {
     fun getProductsSortedAlphabetically(): List<Product> {
         return products.sortedBy { it.name }
     }
+
     private val specialOffers: MutableMap<String, Int> = mutableMapOf()
     private val couponCodes: MutableMap<String, Double> = mutableMapOf()
 
@@ -100,5 +101,9 @@ class Shop {
             totalPrice += calculateSpecialOfferPrice(product, quantity)
         }
         return totalPrice
+    }
+
+    fun addCoupnCode(code: String, discount: Double) {
+
     }
 }

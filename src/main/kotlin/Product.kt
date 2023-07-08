@@ -1,4 +1,5 @@
-class Product(val name: String, val price: Double, val review: String)  open class Account(val username: String, val password: String, protected val shop: Shop)
+class Product(val name: String, val price: Double, val review: String)
+open class Account(val username: String, val password: String, protected val shop: Shop)
 class AdminAccount(username: String, password: String, shop: Shop) : Account(username, password, shop) {
     fun addProduct() {
         println("Produkt hinzufügen:")
@@ -14,6 +15,11 @@ class AdminAccount(username: String, password: String, shop: Shop) : Account(use
             println("Produkt erfolgreich hinzugefügt.")
         } else {
             println("Ungültige Eingabe. Produkt konnte nicht hinzugefügt werden.")
+        }
+    }
+    class Product(val id: Int, val name: String, val price: Double, val review: String) {
+        override fun toString(): String {
+            return "ID: $id\nName: $name\nPreis: $price\nKundenrezension: $review\n---------------------------"
         }
     }
 
