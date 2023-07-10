@@ -1,4 +1,6 @@
-import kotlin.math.min
+
+
+import kotlin.math.min     //Hier werden die Klassen und Funktionen importiert
 
 val userAccounts: MutableList<Account> = mutableListOf()
 fun main() {                               // Hauptfunktion des Dartshops erstellen
@@ -16,21 +18,21 @@ fun main() {                               // Hauptfunktion des Dartshops erstel
                    """+ "\u001B[0m")
 
 
-    println("\u001B[36mBenutzer-Login oder Regestrierung:")
+    println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
     println("\u001B[36m1. Login")
-    println("\u001B[36m2. Regestrierung")
+    println("\u001B[36m2. Registrierung")                      // Registrierung neuer Customer
     val input = readln().toIntOrNull()
 
     when (input) {
         1 -> {
+            // Benutzer-Login
             val loggedInAccount = login()
-            if (loggedInAccount != null) {
+            if (loggedInAccount != null) {                          // Login Überpfüfung
                 displayMenu(loggedInAccount, shop)
             } else {
-                println("Falscher Benutzername oder Passwort.Programm wird beendet.")
+                println("Falscher Benutzername oder Passwort.Programm wird beendet.")        // Fehlermeldung bei falschen Eingaben
             }
         }
-
         2 -> {
             val registeredAccount = register(shop)
             if (registeredAccount != null) {
@@ -38,7 +40,7 @@ fun main() {                               // Hauptfunktion des Dartshops erstel
                 displayMenu(registeredAccount, shop)
 
             } else {
-                println("Benutzerregestrierung fehlgeschlagen.Programm wird beendet.")
+                println("Benutzerregistrierung fehlgeschlagen.Programm wird beendet.")
             }
         }
 
@@ -102,18 +104,17 @@ fun displayMenu(account: Account, shop: Shop) {
     when (account) {
         is AdminAccount -> {
             println("\u001B[35mWillkommen, ${account.username}!\u001b[35m")
-            println("\u001b[36mBitte wählen Sie eine Option:\u001B[36m")
-            println("\u001B[38m1. Produkt hinzufügen\u001B[38m")
-            println("\u001B[38m2. Warenkorb anzeigen\u001B[38m")
-            println("\u001B[34m3. Artikel zum Warenkorb hinzufügen\u001B[34m")
-            println("\u001B[33m4. Bewertungen anzeigen\u001B[33m")
-
-            println("\u001B[32m5. Nach Preis sortieren\u001B[32m")
-            println("\u001B[39m6. Nach Alphabet sortieren\u001B[39m")
-            println("\u001B[35m7. Sonderangebote hinzufügen\u001B[35m")
-            println("\u001B[35m8. Gutscheincode hinzufügen\u001B[35m")
-            println("\u001b[31m9. Logout\u001B[31m")
+            println("\u001B[36mBitte wählen Sie eine Option:\u001B[36m")
+            println("\u001B[93m1. Artikel zum Warenkorb hinzufügen\u001B[34m")
+            println("\u001B[92m2. Warenkorb anzeigen\u001B[38m")
+            println("\u001B[94m3. Bewertungen anzeigen\u001B[33m")
+            println("\u001B[95m4. Nach Preis sortieren\u001B[32m")
+            println("\u001B[96m5. Nach Alphabet sortieren\u001B[39m")
+            println("\u001B[97m6. Sonderangebote hinzufügen\u001B[35m")
+            println("\u001B[35m7. Gutscheincode hinzufügen\u001B[35m")
+            println("\u001b[91m8. Logout\u001B[31m")
             val input = readln().toIntOrNull()
+
             when (input) {
                 1 -> {
                     if (account is AdminAccount) {
@@ -169,7 +170,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     println("Bitte geben Sie den Namen des Produkts ein:")
                     val productName = readln()
                     println("Bitte geben Sie die Mindestmenge für das Sonderangebot ein:")
-                    val quantity = readln()?.toIntOrNull()
+                    val quantity = readln().toIntOrNull()
                     if (productName != null && quantity != null) {
                         shop.addSpecialOffer(quantity, productName)
                         println("Sonderangebote erfolgreich hinzugefügt.")
