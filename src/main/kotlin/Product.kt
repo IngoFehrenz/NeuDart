@@ -17,3 +17,4 @@ class AdminAccount(username: String, password: String, shop: Shop) : Account(use
         }
     }
 }
+

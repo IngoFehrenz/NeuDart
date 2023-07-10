@@ -1,20 +1,21 @@
-val userAccounts: MutableList<Account> = mutableListOf()
-fun main() {
-    val shop = Shop()
-    val adminAccount = AdminAccount("admin", "admin", shop)
-    userAccounts.add(adminAccount)
-    val customerAccount = CustomerAccount("customer", "password", shop)
-    println(
-        """
-                            #######       ###     #########  ########  #######  ##    ##  ########  ##########
-                            ##     ##    #####    ##     ##     ##     ##   ##  ##    ##  ##    ##  ##      ##
-                            ##     ##   ##   ##   ##     ##     ##     ##       ##    ##  ##    ##  ##      ##
-                            ##     ##  ##     ##  #########     ##     #######  ########  ##    ##  ##########
-                            ##     ##  #########  ##     ##     ##          ##  ##    ##  ##    ##  ##
-                            ##     ##  ##     ##  ##      ##    ##     ##   ##  ##    ##  ##    ##  ##
-                            #######    ##     ##  ##       ##   ##     #######  ##    ##  ########  ##        """
+import kotlin.math.min
 
-    )
+val userAccounts: MutableList<Account> = mutableListOf()
+fun main() {                               // Hauptfunktion des Dartshops erstellen
+    val shop = Shop()                      // Objekt  des Shops erstellen
+    val adminAccount = AdminAccount("admin", "admin", shop)  //  Admin Account erstellen und zum Benutzerkonto zu fügen
+    userAccounts.add(adminAccount)
+    val customerAccount = CustomerAccount("customer", "password", shop)    //Kunden Acccount erstellen und zum Benutzerkonto zu fügen
+    println("\u001B[34m" +"""
+                              ██████╗░░█████╗░██████╗░████████╗░██████╗██╗░░██╗░█████╗░██████╗░
+                              ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║░░██║██╔══██╗██╔══██╗
+                              ██║░░██║███████║██████╔╝░░░██║░░░╚█████╗░███████║██║░░██║██████╔╝
+                              ██║░░██║██╔══██║██╔══██╗░░░██║░░░░╚═══██╗██╔══██║██║░░██║██╔═══╝░
+                              ██████╔╝██║░░██║██║░░██║░░░██║░░░██████╔╝██║░░██║╚█████╔╝██║░░░░░
+                              ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░                           
+                   """+ "\u001B[0m")
+
+
     println("\u001B[36mBenutzer-Login oder Regestrierung:")
     println("\u001B[36m1. Login")
     println("\u001B[36m2. Regestrierung")
@@ -24,11 +25,12 @@ fun main() {
         1 -> {
             val loggedInAccount = login()
             if (loggedInAccount != null) {
-            displayMenu(loggedInAccount, shop)
-        } else {
-            println("Falscher Benutzername oder Passwort.Programm wird beendet.")
+                displayMenu(loggedInAccount, shop)
+            } else {
+                println("Falscher Benutzername oder Passwort.Programm wird beendet.")
+            }
         }
-    }
+
         2 -> {
             val registeredAccount = register(shop)
             if (registeredAccount != null) {
@@ -38,10 +40,11 @@ fun main() {
             } else {
                 println("Benutzerregestrierung fehlgeschlagen.Programm wird beendet.")
             }
-    }
-    else -> {
-        println("Ungueltige Eingabe.Programm wird beendet.")
-    }
+        }
+
+        else -> {
+            println("Ungueltige Eingabe.Programm wird beendet.")
+        }
     }
     val loggedInAccount = login()
     if (loggedInAccount != null) {
@@ -50,21 +53,20 @@ fun main() {
         println("Falscher Benutzername oder Passwort.Programm wird beendet.")
     }
 }
+
 fun login(): Account? {
-    println(
-        """
-                            #######       ###     #########  ########  #######  ##    ##  ########  ##########
-                            ##     ##    #####    ##      ##    ##     ##   ##  ##    ##  ##    ##  ##      ##
-                            ##     ##   ##   ##   ##      ##    ##     ##       ##    ##  ##    ##  ##      ##
-                            ##     ##  ##     ##  #########     ##     #######  ########  ##    ##  ##########
-                            ##     ##  #########  ##     ##     ##          ##  ##    ##  ##    ##  ##
-                            ##     ##  ##     ##  ##      ##    ##     ##   ##  ##    ##  ##    ##  ##
-                            #######    ##     ##  ##       ##   ##     #######  ##    ##  ########  ##        """
-
-    )
+    println("\u001B[34m" +"""
+               
+                              ██████╗░░█████╗░██████╗░████████╗░██████╗██╗░░██╗░█████╗░██████╗░
+                              ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║░░██║██╔══██╗██╔══██╗
+                              ██║░░██║██╔══██║██╔══██╗░░░██║░░░░╚═══██╗██╔══██║██║░░██║██╔═══╝░
+                              ██████╔╝██║░░██║██║░░██║░░░██║░░░██████╔╝██║░░██║╚█████╔╝██║░░░░░
+                              ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░              """+ "\u001B[0m")
 
 
-    println("\u001B[36mBenutzer-Login:")
+
+
+    println("Benutzer-Login:")
     println("\u001B[36mBitte geben sie Ihren benutzernamen ein:")
     val username = readln()
     println("\u001B[36mBittegeben sie Ihr Passwort ein:")
@@ -80,6 +82,7 @@ fun login(): Account? {
     }
 
 }
+
 fun register(shop: Shop): CustomerAccount? {
     println("\u001B[36mBenutzerregistrierung:")
     println("\u001B[36mBitte geben Sie einen Benutzernamen ein:")
@@ -94,6 +97,7 @@ fun register(shop: Shop): CustomerAccount? {
     }
     return CustomerAccount(username, password, Shop())
 }
+
 fun displayMenu(account: Account, shop: Shop) {
     when (account) {
         is AdminAccount -> {
@@ -103,6 +107,7 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[38m2. Warenkorb anzeigen\u001B[38m")
             println("\u001B[34m3. Artikel zum Warenkorb hinzufügen\u001B[34m")
             println("\u001B[33m4. Bewertungen anzeigen\u001B[33m")
+
             println("\u001B[32m5. Nach Preis sortieren\u001B[32m")
             println("\u001B[39m6. Nach Alphabet sortieren\u001B[39m")
             println("\u001B[35m7. Sonderangebote hinzufügen\u001B[35m")
@@ -263,14 +268,5 @@ fun displayMenu(account: Account, shop: Shop) {
     displayMenu(account, shop)
 
 
-
 }
-
-
-
-
-
-
-
-
 
