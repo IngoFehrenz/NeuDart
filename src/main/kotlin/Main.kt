@@ -7,7 +7,7 @@ fun main() {                               // Hauptfunktion des Dartshops erstel
     val shop = Shop()                      // Objekt  des Shops erstellen
     val adminAccount = AdminAccount("admin", "admin", shop)  //  Admin Account erstellen und zum Benutzerkonto zu fügen
     userAccounts.add(adminAccount)
-    val customerAccount = CustomerAccount("customer", "password", shop)    //Kunden Acccount erstellen und zum Benutzerkonto zu fügen
+    val customerAccount = CustomerAccount("customer", "password", shop) //Kunden Acccount erstellen und zum Benutzerkonto zu fügen
     println("\u001B[34m" +"""
                               ██████╗░░█████╗░██████╗░████████╗░██████╗██╗░░██╗░█████╗░██████╗░
                               ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║░░██║██╔══██╗██╔══██╗
@@ -16,7 +16,7 @@ fun main() {                               // Hauptfunktion des Dartshops erstel
                               ██████╔╝██║░░██║██║░░██║░░░██║░░░██████╔╝██║░░██║╚█████╔╝██║░░░░░
                               ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░                           
                    """+ "\u001B[0m")
-
+    Thread.sleep(3000)
 
     println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
     println("\u001B[36m1. Login")
@@ -40,7 +40,7 @@ fun main() {                               // Hauptfunktion des Dartshops erstel
                 displayMenu(registeredAccount, shop)
 
             } else {
-                println("Benutzerregistrierung fehlgeschlagen.Programm wird beendet.")
+                println("Benutzerregstrierung fehlgeschlagen.Programm wird beendet.")
             }
         }
 
@@ -65,7 +65,7 @@ fun login(): Account? {
                               ██████╔╝██║░░██║██║░░██║░░░██║░░░██████╔╝██║░░██║╚█████╔╝██║░░░░░
                               ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░              """+ "\u001B[0m")
 
-
+    Thread.sleep(3000)
 
 
     println("Benutzer-Login:")
@@ -79,13 +79,17 @@ fun login(): Account? {
     return when {
         username == "admin" && password == "admin" -> AdminAccount("admin", "admin", Shop())
         username == "customer" && password == "password" && age >= 12 -> CustomerAccount("customer", "password", Shop())
-        username == "customer" && password == "password" && age >= 12 -> Account("customer", "password", Shop())
+        /*username == "customer" && password == "password" && age >= 12 -> Account("customer", "password", Shop())*/
+
+
         else -> null
     }
 
 }
 
 fun register(shop: Shop): CustomerAccount? {
+
+
     println("\u001B[36mBenutzerregistrierung:")
     println("\u001B[36mBitte geben Sie einen Benutzernamen ein:")
     val username = readln()
@@ -105,14 +109,15 @@ fun displayMenu(account: Account, shop: Shop) {
         is AdminAccount -> {
             println("\u001B[35mWillkommen, ${account.username}!\u001b[35m")
             println("\u001B[36mBitte wählen Sie eine Option:\u001B[36m")
-            println("\u001B[93m1. Artikel zum Warenkorb hinzufügen\u001B[34m")
+            println("\u001B[93m1. Artikel zum Bestand hinzufügen\u001B[34m")
             println("\u001B[92m2. Warenkorb anzeigen\u001B[38m")
-            println("\u001B[94m3. Bewertungen anzeigen\u001B[33m")
-            println("\u001B[95m4. Nach Preis sortieren\u001B[32m")
-            println("\u001B[96m5. Nach Alphabet sortieren\u001B[39m")
-            println("\u001B[97m6. Sonderangebote hinzufügen\u001B[35m")
-            println("\u001B[35m7. Gutscheincode hinzufügen\u001B[35m")
-            println("\u001b[91m8. Logout\u001B[31m")
+            println("\u001B[92m3. Artikel zum Warenkorb zufügen\u001B[38m")
+            println("\u001B[94m4. Bewertungen anzeigen\u001B[33m")
+            println("\u001B[95m5. Nach Preis sortieren\u001B[32m")
+            println("\u001B[96m6. Nach Alphabet sortieren\u001B[39m")
+            println("\u001B[97m7. Sonderangebote hinzufügen\u001B[35m")
+            println("\u001B[35m8. Gutscheincode hinzufügen\u001B[35m")
+            println("\u001b[91m9. Logout\u001B[31m")
             val input = readln().toIntOrNull()
 
             when (input) {
@@ -120,7 +125,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     if (account is AdminAccount) {
                         account.addProduct()
                     } else {
-                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                        println("Produkt wurde hinzugefuegt..")
                     }
                 }
 
@@ -128,7 +133,11 @@ fun displayMenu(account: Account, shop: Shop) {
                     if (account is CustomerAccount) {
                         account.printCart()
                     } else {
-                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                        println("1" +
+                                "admin" +
+                                "admin" +
+                                "55" +
+                                ".")
                     }
                 }
 
@@ -214,13 +223,20 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001b[31m6. Logout\u001B[31m")
             val input = readln().toIntOrNull()
             when (input) {
-                1 -> {
-
+                1 -> {if (account is CustomerAccount) {
                     account.addProductToCart()
+                } else {
+                    println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                }
+
                 }
 
                 2 -> {
-                    account.printCart()
+                    if (account is CustomerAccount) {
+                        account.printCart()
+                    } else {
+                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                    }
 
                 }
 
@@ -270,4 +286,5 @@ fun displayMenu(account: Account, shop: Shop) {
 
 
 }
+
 

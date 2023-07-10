@@ -13,7 +13,7 @@ class Shop {
         val product9 = Product("Dart Scoreboard", 35.99, "Elektronisches Scoreboard fuer die Dartspiele")
         val product10 = Product("Dart Trainingsbuch", 8.99, "Trainingsbuch mit Tipps und Uebungen fuer Dartspieler")
         val product11 = Product("Dart Barrels (Set bestehend aus 3 Barrels)", 17.99, "Dart Barrels fuer Dartpfeile")
-        val product12 = Product("Dart Spitzen(Beutel mit 1000 Spitzen)", 15.99, "Dart Spitzen fuer ")
+        val product12 = Product("Dart Spitzen(Beutel mit 1000 Spitzen)", 15.99, "Dart Spitzen fuer Dartpfeile ")
         addProduct(product1)
         addProduct(product2)
         addProduct(product3)

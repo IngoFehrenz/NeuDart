@@ -8,9 +8,13 @@ class CustomerAccount (username: String, password: String, shop: Shop) : Account
         val product = this.shop.products.find { it.name == productName }
         if (product != null) {
             cart.add(product)
-            println("Produkt nicht gefunden.Bitte geben Sie einen gueltigen Namen ein.")
-        }
-    }
+            println("Das Produkt wird zum Warenkorb hinzugefügt")
+    } else {
+        println("Produkt nicht gefunden.Bitte geben Sie einen gueltigen Namen ein.") }
+}
+
+
+
     fun printCart() {
         if (cart.isNotEmpty()) {
             println("Warenkorbinhalt:")
