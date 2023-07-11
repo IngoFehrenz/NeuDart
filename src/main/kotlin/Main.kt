@@ -1,5 +1,3 @@
-
-
 import kotlin.math.min     //Hier werden die Klassen und Funktionen importiert
 
 val userAccounts: MutableList<Account> = mutableListOf()
@@ -48,12 +46,7 @@ fun main() {                               // Hauptfunktion des Dartshops erstel
             println("Ungueltige Eingabe.Programm wird beendet.")
         }
     }
-    val loggedInAccount = login()
-    if (loggedInAccount != null) {
-        displayMenu(loggedInAccount, shop)
-    } else {
-        println("Falscher Benutzername oder Passwort.Programm wird beendet.")
-    }
+
 }
 
 fun login(): Account? {
@@ -74,6 +67,7 @@ fun login(): Account? {
     println("\u001B[36mBittegeben sie Ihr Passwort ein:")
     val password = readln()
     println("\u001B[36mBitte geben sie Ihr Alter ein:")
+
     val age = readln().toInt()
 
     return when {
@@ -179,9 +173,12 @@ fun displayMenu(account: Account, shop: Shop) {
                     }
                 }
 
-                7 -> {
-                    println("Das Programm wird beendet.")
-                    login()
+                7 -> { val loggedInAccount = login()
+                    if (loggedInAccount != null) {
+                        displayMenu(loggedInAccount, shop)
+                    } else {
+                        println("Falscher Benutzername oder Passwort.Programm wird beendet.")
+                    }
                 }
 
                 else -> {
@@ -195,10 +192,10 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001b[36m Bitte wählen Sie eine Option:\u001B[36m")
             println("\u001B[34m1. Artikel zum Warenkorb hinzufügen \u001B[34m")
             println("\u001B[33m2. Warenkorb anzeigen \u001B[33m")
-            println("\u001B[33m3. Bewertungen anzeigen\u001B[33m")
+            println("\u001B[36m3. Bewertungen anzeigen\u001B[33m")
             println("\u001B[39m4. Nach Preis sortieren\u001B[39m")
-            println("\u001B[35m5. Nach Alphabet sortieren\u001B[35m")
-            println("\u001B[35m6. Sonderangebote aussuchen\u001B[35m")
+            println("\u001B[32m5. Nach Alphabet sortieren\u001B[35m")
+            println("\u001B[34m6. Sonderangebote aussuchen\u001B[35m")
             println("\u001B[35m7. Gutscheine einlösen\u001B[35m")
             println("\u001b[31m8. Logout\u001B[31m")
             val input = readln().toIntOrNull()
@@ -251,6 +248,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     shop.displaySpecialOffers()
                     shop.addSpecialOffer(3, "Produkt A")
                     shop.addSpecialOffer(5, "Produkt B")
+
                 }
 
                 7 -> {
@@ -276,13 +274,8 @@ fun displayMenu(account: Account, shop: Shop) {
         }
     }
     displayMenu(account, shop)
-
-
-    val shop = Shop()
-    shop.addSpecialOffer(3, "Produkt A")
-    shop.addSpecialOffer(null, "Produkt B")
-
 }
+
 
 
 
