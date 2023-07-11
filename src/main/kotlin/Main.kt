@@ -65,7 +65,7 @@ fun login(): Account? {
                               ██████╔╝██║░░██║██║░░██║░░░██║░░░██████╔╝██║░░██║╚█████╔╝██║░░░░░
                               ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░              """+ "\u001B[0m")
 
-    Thread.sleep(3000)
+    Thread.sleep(1000)
 
 
     println("Benutzer-Login:")
@@ -110,14 +110,12 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[35mWillkommen, ${account.username}!\u001b[35m")
             println("\u001B[36mBitte wählen Sie eine Option:\u001B[36m")
             println("\u001B[93m1. Artikel zum Bestand hinzufügen\u001B[34m")
-            println("\u001B[92m2. Warenkorb anzeigen\u001B[38m")
-            println("\u001B[92m3. Artikel zum Warenkorb zufügen\u001B[38m")
-            println("\u001B[94m4. Bewertungen anzeigen\u001B[33m")
-            println("\u001B[95m5. Nach Preis sortieren\u001B[32m")
-            println("\u001B[96m6. Nach Alphabet sortieren\u001B[39m")
-            println("\u001B[97m7. Sonderangebote hinzufügen\u001B[35m")
-            println("\u001B[35m8. Gutscheincode hinzufügen\u001B[35m")
-            println("\u001b[91m9. Logout\u001B[31m")
+            println("\u001B[94m2. Bewertungen anzeigen\u001B[33m")
+            println("\u001B[95m3. Nach Preis sortieren\u001B[32m")
+            println("\u001B[96m4. Nach Alphabet sortieren\u001B[39m")
+            println("\u001B[97m5. Sonderangebote hinzufügen\u001B[35m")
+            println("\u001B[35m6. Gutscheincode hinzufügen\u001B[35m")
+            println("\u001b[91m7. Logout\u001B[31m")
             val input = readln().toIntOrNull()
 
             when (input) {
@@ -130,30 +128,10 @@ fun displayMenu(account: Account, shop: Shop) {
                 }
 
                 2 -> {
-                    if (account is CustomerAccount) {
-                        account.printCart()
-                    } else {
-                        println("1" +
-                                "admin" +
-                                "admin" +
-                                "55" +
-                                ".")
-                    }
-                }
-
-                3 -> {
-                    if (account is CustomerAccount) {
-                        account.addProductToCart()
-                    } else {
-                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
-                    }
-                }
-
-                4 -> {
                     shop.printProductReviews()
                 }
 
-                5 -> {
+                3 -> {
                     val sortedByPrice = shop.getProductsSortedByPriceAscending()
                     println("Verfügbare Produkte nach Preis (aufsteigend):")
                     sortedByPrice.forEach { product ->
@@ -164,7 +142,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     }
                 }
 
-                6 -> {
+                4 -> {
                     val sortedAlphabetically = shop.geetProductsSortedAlphabetically()
                     println("Verfügbare Produkte alphabetisch sortiert:")
                     sortedAlphabetically.forEach { product ->
@@ -175,7 +153,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     }
                 }
 
-                7 -> {
+                5 -> {
                     println("Bitte geben Sie den Namen des Produkts ein:")
                     val productName = readln()
                     println("Bitte geben Sie die Mindestmenge für das Sonderangebot ein:")
@@ -188,7 +166,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     }
                 }
 
-                8 -> {
+                6 -> {
                     println("Bitte geben Sie den Gutscheincode ein:")
                     val code = readln()
                     println("Bitte geben Sie den Rabatt in Prozent ein:")
@@ -201,7 +179,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     }
                 }
 
-                9 -> {
+                7 -> {
                     println("Das Programm wird beendet.")
                     login()
                 }
@@ -220,14 +198,17 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[33m3. Bewertungen anzeigen\u001B[33m")
             println("\u001B[39m4. Nach Preis sortieren\u001B[39m")
             println("\u001B[35m5. Nach Alphabet sortieren\u001B[35m")
-            println("\u001b[31m6. Logout\u001B[31m")
+            println("\u001B[35m6. Sonderangebote aussuchen\u001B[35m")
+            println("\u001B[35m7. Gutscheine einlösen\u001B[35m")
+            println("\u001b[31m8. Logout\u001B[31m")
             val input = readln().toIntOrNull()
             when (input) {
-                1 -> {if (account is CustomerAccount) {
-                    account.addProductToCart()
-                } else {
-                    println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
-                }
+                1 -> {
+                    if (account is CustomerAccount) {
+                        account.addProductToCart()
+                    } else {
+                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                    }
 
                 }
 
@@ -267,6 +248,18 @@ fun displayMenu(account: Account, shop: Shop) {
                 }
 
                 6 -> {
+                    shop.displaySpecialOffers()
+                    shop.addSpecialOffer(3, "Produkt A")
+                    shop.addSpecialOffer(5, "Produkt B")
+                }
+
+                7 -> {
+                    shop.displayCouponCodes()
+                    shop.addCoupnCode("CODE123", 10.0)
+                    shop.addCoupnCode("CODE456", 20.0)
+                }
+
+                8 -> {
                     println("Das Programm wird beendet.")
                     login()
                 }
@@ -285,6 +278,11 @@ fun displayMenu(account: Account, shop: Shop) {
     displayMenu(account, shop)
 
 
+    val shop = Shop()
+    shop.addSpecialOffer(3, "Produkt A")
+    shop.addSpecialOffer(null, "Produkt B")
+
 }
+
 
 

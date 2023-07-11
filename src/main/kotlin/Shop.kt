@@ -1,5 +1,7 @@
 class Shop {
     val products: MutableList<Product> = mutableListOf()
+    private val couponCodes: MutableMap<String, Double> = mutableMapOf()
+    private val specialOffers: MutableMap<String, Int> = mutableMapOf()
 
     init {
         val product1 = Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger")
@@ -26,6 +28,7 @@ class Shop {
         addProduct(product10)
         addProduct(product11)
         addProduct(product12)
+
     }
 
     fun addProduct(product: Product) {
@@ -56,12 +59,18 @@ class Shop {
     fun geetProductsSortedAlphabetically(): List<Product> {
          return products.sortedBy { it.name}
     }
-    private val specialOffers: MutableMap<String, Int>   = mutableMapOf()
-    private val couponCodes: MutableMap<String, Double> = mutableMapOf()
 
-    fun addSpecialOffer(quantity: Int, productName: String) {
-        specialOffers[productName] = quantity
+
+
+    fun addSpecialOffer(quantity: Int?, productName: String?) {
+        if (quantity != null && productName != null) {
+            specialOffers[productName] = quantity
+
+        } else {
+            println("Ungültige Eingabe. Menge und Produktname dürfen nicht null sein.")
+        }
     }
+
 
     fun addCoupnCode(code: String, discountPercentage: Double) {
         couponCodes[code] = discountPercentage
@@ -94,7 +103,27 @@ class Shop {
 
         return totalPrice
     }
+    fun getSpecialOffers(): Map<String, Int> {
+        return specialOffers
+    }
 
+    fun getCouponCodes(): Map<String, Double> {
+        return couponCodes
+    }
+
+    fun displaySpecialOffers() {
+        println("Spezielle Angebote:")
+        for ((productName, quantity) in specialOffers) {
+            println("$productName - $quantity")
+        }
+    }
+
+    fun displayCouponCodes() {
+        println("Gutschein-Codes:")
+        for ((code, discountPercentage) in couponCodes) {
+            println("$code - $discountPercentage%")
+        }
+    }
  }
 
 
