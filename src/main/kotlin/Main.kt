@@ -1,11 +1,16 @@
-import kotlin.math.min     //Hier werden die Klassen und Funktionen importiert
-
 val userAccounts: MutableList<Account> = mutableListOf()
-fun main() {                               // Hauptfunktion des Dartshops erstellen
-    val shop = Shop()                      // Objekt  des Shops erstellen
-    val adminAccount = AdminAccount("admin", "admin", shop)  //  Admin Account erstellen und zum Benutzerkonto zu fügen
+fun main() {
+    val text = "Guten Tag in unserem Dartshop..................."
+    for (i in 0 until text.length) {
+        print(text[i])
+        Thread.sleep(100)         // Wartezeit zwischen den Buchstaben (200 Millisekunden)
+    }
+        println()
+
+    val shop = Shop()
+    val adminAccount = AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zu fügen
     userAccounts.add(adminAccount)
-    val customerAccount = CustomerAccount("customer", "password", shop) //Kunden Acccount erstellen und zum Benutzerkonto zu fügen
+    CustomerAccount("customer", "password", shop)                     //Kunden Acccount erstellen und zum Benutzerkonto zu fügen
     println("\u001B[34m" +"""
                               ██████╗░░█████╗░██████╗░████████╗░██████╗██╗░░██╗░█████╗░██████╗░
                               ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║░░██║██╔══██╗██╔══██╗
@@ -14,14 +19,12 @@ fun main() {                               // Hauptfunktion des Dartshops erstel
                               ██████╔╝██║░░██║██║░░██║░░░██║░░░██████╔╝██║░░██║╚█████╔╝██║░░░░░
                               ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░                           
                    """+ "\u001B[0m")
-    Thread.sleep(3000)
+    Thread.sleep(2000)
 
     println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
     println("\u001B[36m1. Login")
     println("\u001B[36m2. Registrierung")                      // Registrierung neuer Customer
-    val input = readln().toIntOrNull()
-
-    when (input) {
+    when (readln().toIntOrNull()) {
         1 -> {
             // Benutzer-Login
             val loggedInAccount = login()
@@ -110,9 +113,7 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[97m5. Sonderangebote hinzufügen\u001B[35m")
             println("\u001B[35m6. Gutscheincode hinzufügen\u001B[35m")
             println("\u001b[91m7. Logout\u001B[31m")
-            val input = readln().toIntOrNull()
-
-            when (input) {
+            when (readln().toIntOrNull()) {
                 1 -> {
                     if (account is AdminAccount) {
                         account.addProduct()
@@ -197,9 +198,8 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[32m5. Nach Alphabet sortieren\u001B[35m")
             println("\u001B[34m6. Sonderangebote aussuchen\u001B[35m")
             println("\u001B[35m7. Gutscheine einlösen\u001B[35m")
-            println("\u001b[31m8. Logout\u001B[31m")
-            val input = readln().toIntOrNull()
-            when (input) {
+            println("\u001b[91m8. Logout\u001B[31m")
+            when (readln().toIntOrNull()) {
                 1 -> {
                     if (account is CustomerAccount) {
                         account.addProductToCart()
