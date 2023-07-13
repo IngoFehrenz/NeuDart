@@ -1,16 +1,16 @@
 val userAccounts: MutableList<Account> = mutableListOf()
 fun main() {
     val text = "Guten Tag in unserem Dartshop..................."
-    for (i in 0 until text.length) {
+    for (i in 0 until text.length) {      //gehe mit der Forschleife von 0 bis Ende des Textes durch
         print(text[i])
-        Thread.sleep(100)         // Wartezeit zwischen den Buchstaben (200 Millisekunden)
+        Thread.sleep(100)         // Wartezeit zwischen den Buchstaben (100 Millisekunden)
     }
         println()
 
-    val shop = Shop()
-    val adminAccount = AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zu fügen
+    val shop = Shop()                   // Hier wird der Shop initialisiert
+    val adminAccount = AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
     userAccounts.add(adminAccount)
-    CustomerAccount("customer", "password", shop)                     //Kunden Acccount erstellen und zum Benutzerkonto zu fügen
+    CustomerAccount("customer", "password", shop)                     //Kunden Account erstellen und zum Benutzerkonto zugefügt
     println("\u001B[34m" +"""
                               ██████╗░░█████╗░██████╗░████████╗░██████╗██╗░░██╗░█████╗░██████╗░
                               ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║░░██║██╔══██╗██╔══██╗
@@ -24,7 +24,7 @@ fun main() {
     println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
     println("\u001B[36m1. Login")
     println("\u001B[36m2. Registrierung")                      // Registrierung neuer Customer
-    when (readln().toIntOrNull()) {
+    when (readln().toIntOrNull()) {                            // wenn die Bedingung 1 erfüllt wird gelange ich ins Login
         1 -> {
             // Benutzer-Login
             val loggedInAccount = login()
@@ -35,13 +35,13 @@ fun main() {
             }
         }
         2 -> {
-            val registeredAccount = register(shop)
+            val registeredAccount = register(shop)     // Hier wird die Registrierung aufgerufen
             if (registeredAccount != null) {
                 userAccounts.add(registeredAccount)
                 displayMenu(registeredAccount, shop)
 
             } else {
-                println("Benutzerregstrierung fehlgeschlagen.Programm wird beendet.")
+                println("Benutzerregiestrierung fehlgeschlagen.Programm wird beendet.")           // Fehlermeldung bei falschen Eingaben
             }
         }
 
@@ -77,9 +77,9 @@ fun login(): Account? {
         username == "admin" && password == "admin" -> AdminAccount("admin", "admin", Shop())
         username == "customer" && password == "password" && age >= 12 -> CustomerAccount("customer", "password", Shop())
         /*username == "customer" && password == "password" && age >= 12 -> Account("customer", "password", Shop())*/
+                                                // gebe zurück wenn alles übereinstimmt
 
-
-        else -> null
+        else -> null          // wenn es nicht übereinstimmt gibt er den Wert null zurück
     }
 
 }
@@ -94,12 +94,13 @@ fun register(shop: Shop): CustomerAccount? {
     val age = readln().toInt()
     if (age < 12) {
         println("Sie müesssen mindestens 12 Jahre alt sein,um sich zu registrieren.")
-        return null
-    }
-    return CustomerAccount(username, password, Shop())
+        return null              // Hier registriert sich der Customer muß aber mindestens 12 Jahre alt sein
+    }                            // Ist er keine 12 Jahre alt  kann er sich hier nicht regestrieren
+    return CustomerAccount(username, password, Shop())   // Der Customer wird im Shop-register angelegt
 }
 
-fun displayMenu(account: Account, shop: Shop) {
+fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop angelegt wo alle Optionen
+                                                // drinne sind die der Admin auswählen kann
     when (account) {
         is AdminAccount -> {
             println("\u001B[35mWillkommen, ${account.username}!\u001b[35m")
@@ -111,7 +112,7 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[97m5. Sonderangebote hinzufügen\u001B[35m")
             println("\u001B[35m6. Gutscheincode hinzufügen\u001B[35m")
             println("\u001b[91m7. Logout\u001B[31m")
-            when (readln().toIntOrNull()) {
+            when (readln().toIntOrNull()) {         // wenn die Bedingung 1 erfüllt wird gelange ich den AdminAccount
                 1 -> {
                     if (account is AdminAccount) {
                         account.addProduct()
@@ -121,17 +122,17 @@ fun displayMenu(account: Account, shop: Shop) {
                 }
 
                 2 -> {
-                    shop.printProductReviews()
+                    shop.printProductReviews()         // Hier werden die Bewertungen der Produkte ausgegeben
                 }
 
                 3 -> {
                     val sortedByPrice = shop.getProductsSortedByPriceAscending()
                     println("Verfügbare Produkte nach Preis (aufsteigend):")
-                    sortedByPrice.forEach { product ->
+                    sortedByPrice.forEach { product ->       // die for each Schleife geht durch die Produkte durch und sortiert sie nach Preis
                         println("Name: ${product.name}")
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
-                        println("------------------------------")
+                        println("------------------------------")      // Hier werden die Produkte aufsteigen nach Preis sortiert
                     }
                 }
 
@@ -142,7 +143,7 @@ fun displayMenu(account: Account, shop: Shop) {
                         println("Name: ${product.name}")
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
-                        println("------------------------------")
+                        println("------------------------------")       // Hier werden die Produkte nach Alphabet sortiert
                     }
                 }
 
@@ -150,7 +151,7 @@ fun displayMenu(account: Account, shop: Shop) {
                     println("Bitte geben Sie den Namen des Produkts ein:")
                     val productName = readln()
                     println("Bitte geben Sie die Mindestmenge für das Sonderangebot ein:")
-                    val quantity = readln().toIntOrNull()
+                    val quantity = readln().toIntOrNull()    //Die Eingabe bekommt die Konstante quantity
                     if (productName != null && quantity != null) {
                         shop.addSpecialOffer(quantity, productName)
                         println("Sonderangebote erfolgreich hinzugefügt.")
@@ -164,7 +165,8 @@ fun displayMenu(account: Account, shop: Shop) {
                     val code = readln()
                     println("Bitte geben Sie den Rabatt in Prozent ein:")
                     val discount = readln().toDoubleOrNull()
-                    if (code != null && discount != null) {
+                    if (code != null && discount != null) {       // Wenn beide Eingaben gültig sind, wird der Gutscheincode mit
+                                                                  // dem entsprechenden Rabatt zum Shop hinzugefügt
                         shop.addCoupnCode(code, discount)
                         println("Gutscheincode erfolgreich hinzugefügt.")
                     } else {
@@ -198,7 +200,7 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[34m6. Sonderangebote aussuchen\u001B[35m")
             println("\u001B[35m7. Gutscheine einlösen\u001B[35m")
             println("\u001b[91m8. Logout\u001B[31m")
-            when (readln().toIntOrNull()) {
+            when (readln().toIntOrNull()) {        // wenn die Bedingung 1 erfüllt wird gelange ich den CustomerAccount
                 0 -> {
                     if (account is CustomerAccount) {
                         shop.printProducts()
@@ -208,7 +210,7 @@ fun displayMenu(account: Account, shop: Shop) {
 
                 }
                 1 -> {
-                    if (account is CustomerAccount) {
+                    if (account is CustomerAccount) {      //Hier werden die Produkte zum Warenkorb hinzugefügt
                         account.addProductToCart()
                     } else {
                         println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
@@ -217,7 +219,7 @@ fun displayMenu(account: Account, shop: Shop) {
                 }
 
                 2 -> {
-                    if (account is CustomerAccount) {
+                    if (account is CustomerAccount) {      //Hier wird der Warenkorb ausgegeben
                         account.printCart()
                     } else {
                         println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
@@ -226,17 +228,17 @@ fun displayMenu(account: Account, shop: Shop) {
                 }
 
                 3 -> {
-                    shop.printProductReviews()
+                    shop.printProductReviews()             // Hier werden die Bewertungen der Produkte ausgegeben
                 }
 
                 4 -> {
                     val sortedByPrice = shop.getProductsSortedByPriceAscending()
                     println("Verfügbare Produkte nach Preis (aufsteigend):")
-                    sortedByPrice.forEach { product ->
+                    sortedByPrice.forEach { product ->         // die for each Schleife geht durch die Produkte durch und sortiert sie nach Preis
                         println("Name: ${product.name}")
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
-                        println("------------------------------")
+                        println("------------------------------")         // Hier werden die Produkte aufsteigen nach Preis sortiert
                     }
                 }
 
@@ -247,19 +249,19 @@ fun displayMenu(account: Account, shop: Shop) {
                         println("Name: ${product.name}")
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
-                        println("------------------------------")
+                        println("------------------------------")          // Hier werden die Produkte nach Alphabet sortiert
                     }
                 }
 
                 6 -> {
                     shop.displaySpecialOffers()
-                    shop.addSpecialOffer(3, "Produkt A")
+                    shop.addSpecialOffer(3, "Produkt A")    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
                     shop.addSpecialOffer(5, "Produkt B")
 
                 }
 
                 7 -> {
-                    shop.displayCouponCodes()
+                    shop.displayCouponCodes()                                    //fügt einen neuen Gutschein-Code hinzu, der im Shop verwendet werden kann. Der Gutschein-Code „CODE123“ hat einen Rabatt von 10 %.
                     shop.addCoupnCode("CODE123", 10.0)
                     shop.addCoupnCode("CODE456", 20.0)
                 }

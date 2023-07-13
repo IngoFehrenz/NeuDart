@@ -3,7 +3,7 @@ class Shop {
     private val couponCodes: MutableMap<String, Double> = mutableMapOf()
     private val specialOffers: MutableMap<String, Int> = mutableMapOf()
 
-    init {
+    init {         // Erstellung der Produktliste mit Preis und Bezeichnung
         val product1 = Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger")
         val product2 = Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
         val product3 = Product("Dartcase", 14.99, "Transportkoffer fuer Dartpfeile")
@@ -31,11 +31,11 @@ class Shop {
 
     }
 
-    fun addProduct(product: Product) {
+    fun addProduct(product: Product) {              // Hier werden Produkte hinzugefügt
         products.add(product)
     }
 
-    fun printProducts() {
+    fun printProducts() {                           // Gibt die Verfügbaren Produkte aus
         println("Verfuegbare Produkte:")
         for (product in products) {
             println("Name: ${product.name}")
@@ -45,7 +45,7 @@ class Shop {
         }
     }
 
-    fun printProductReviews() {
+    fun printProductReviews() {                   // Gibt die Beschreibungen der Produkte aus
         println("Kundenrezensionen:")
         for (product in products) {
             println("Produkt: ${product.name}")
@@ -53,16 +53,16 @@ class Shop {
             println("-----------------------------")
         }
     }
-    fun getProductsSortedByPriceAscending(): List<Product>  {
+    fun getProductsSortedByPriceAscending(): List<Product>  {       //Sortierte Preisliste der Produkte
           return products.sortedBy { it.price}
     }
-    fun geetProductsSortedAlphabetically(): List<Product> {
+    fun geetProductsSortedAlphabetically(): List<Product> {        // Alphabetische Liste sortiert
          return products.sortedBy { it.name}
     }
 
 
 
-    fun addSpecialOffer(quantity: Int?, productName: String?) {
+    fun addSpecialOffer(quantity: Int?, productName: String?) {     // Eingabe Produktname und Menge
         if (quantity != null && productName != null) {
             specialOffers[productName] = quantity
 
@@ -72,7 +72,7 @@ class Shop {
     }
 
 
-    fun addCoupnCode(code: String, discountPercentage: Double) {
+    fun addCoupnCode(code: String, discountPercentage: Double) {   // Eingabe der Gutscheincodes und des Rabatts
         couponCodes[code] = discountPercentage
 
     }
@@ -85,7 +85,7 @@ class Shop {
         }
         return totalPrice
     }
-    private fun calculateSpeciaalOfferPrice(product: Product, quantity: Int): Double {
+    private fun calculateSpeciaalOfferPrice(product: Product, quantity: Int): Double {      // Rechnung der Sonderanderangebote
         val offerQuantity = specialOffers[product.name]
         if (offerQuantity != null && quantity >= offerQuantity){
             val regularPrice = product.price * quantity
@@ -94,7 +94,7 @@ class Shop {
         }
         return product.price * quantity
     }
-    fun calculateCartTotalPrice(cart: List<Product>): Double {
+    fun calculateCartTotalPrice(cart: List<Product>): Double {     // Erstellt den Gesamtpreis
         var totalPrice = 0.0
         for (product in cart) {
             val quantity = cart.count { it == product }
@@ -103,22 +103,22 @@ class Shop {
 
         return totalPrice
     }
-    fun getSpecialOffers(): Map<String, Int> {
+    fun getSpecialOffers(): Map<String, Int> {      //Hier werden die Sonderangebote angelegt
         return specialOffers
     }
 
-    fun getCouponCodes(): Map<String, Double> {
+    fun getCouponCodes(): Map<String, Double> {   // Hier werden die Gutscheincodes angelegt
         return couponCodes
     }
 
-    fun displaySpecialOffers() {
+    fun displaySpecialOffers() {               // Hier werden die Sonderangebote angezeigt
         println("Spezielle Angebote:")
         for ((productName, quantity) in specialOffers) {
             println("$productName - $quantity")
         }
     }
 
-    fun displayCouponCodes() {
+    fun displayCouponCodes() {                 // Hier werden die Gutscheincodes angezeigt
         println("Gutschein-Codes:")
         for ((code, discountPercentage) in couponCodes) {
             println("$code - $discountPercentage%")
