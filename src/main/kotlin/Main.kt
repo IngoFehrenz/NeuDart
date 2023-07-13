@@ -85,8 +85,6 @@ fun login(): Account? {
 }
 
 fun register(shop: Shop): CustomerAccount? {
-
-
     println("\u001B[36mBenutzerregistrierung:")
     println("\u001B[36mBitte geben Sie einen Benutzernamen ein:")
     val username = readln()
@@ -191,6 +189,7 @@ fun displayMenu(account: Account, shop: Shop) {
         is CustomerAccount -> {
             println("\u001B[35m Willkommen, ${account.username}!\u001b[35m")
             println("\u001b[36m Bitte wählen Sie eine Option:\u001B[36m")
+            println("\u001b[32m0. Artikelliste anzeigen:\u001B[32m")
             println("\u001B[34m1. Artikel zum Warenkorb hinzufügen \u001B[34m")
             println("\u001B[33m2. Warenkorb anzeigen \u001B[33m")
             println("\u001B[36m3. Bewertungen anzeigen\u001B[33m")
@@ -200,6 +199,14 @@ fun displayMenu(account: Account, shop: Shop) {
             println("\u001B[35m7. Gutscheine einlösen\u001B[35m")
             println("\u001b[91m8. Logout\u001B[31m")
             when (readln().toIntOrNull()) {
+                0 -> {
+                    if (account is CustomerAccount) {
+                        shop.printProducts()
+                    } else {
+                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                    }
+
+                }
                 1 -> {
                     if (account is CustomerAccount) {
                         account.addProductToCart()
