@@ -1,4 +1,4 @@
-class Product(val name: String, val price: Double, val review: String)
+class Product (val name: String, val price:Double, val review: String)
 open class Account(val username: String, val password: String,protected val shop: Shop)
 class AdminAccount(username: String, password: String, shop: Shop) : Account(username, password, shop) {
     fun addProduct() {
@@ -18,7 +18,4 @@ class AdminAccount(username: String, password: String, shop: Shop) : Account(use
         }
     }
 }
-
-
-
 

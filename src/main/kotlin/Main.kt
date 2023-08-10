@@ -1,3 +1,5 @@
+import kotlin.system.exitProcess
+
 val userAccounts: MutableList<Account> = mutableListOf()
 fun main() {
     val text = "\u001B[34mGuten Tag in unserem Dartshop..................."
@@ -76,8 +78,8 @@ fun login(): Account? {
 
     return when {
         username == "admin" && password == "admin" -> AdminAccount("admin", "admin", Shop())
-        username == "customer" && password == "password" && age >= 12 -> CustomerAccount("customer", "password", Shop())
-        /*username == "customer" && password == "password" && age >= 12 -> Account("customer", "password", Shop())*/
+        username == "customer" && password == "password" && age <= 12 -> CustomerAccount("customer", "password", Shop())
+        /*username == "customer" && password == "password" && age <= 12 -> Account("customer", "password", Shop())*/
         // gebe zurück, wenn alles übereinstimmt
 
         else -> null          // wenn es nicht überein stimmt, gibt er den Wert null zurück
@@ -93,14 +95,15 @@ fun register(shop: Shop): CustomerAccount? {
     val password = readln()
     println("\u001B[36mBitte geben Sie Ihr Alter ein:")
     val age = readln().toInt()
-    if (age < 12) {
+    if (age <= 12) {
         println("Sie müssen mindestens 12 Jahre alt sein,um sich zu registrieren.")
+        exitProcess(0)
     }                            // Ist er keine 12 Jahre alt, kann er sich hier nicht registrieren
     return CustomerAccount(username, password, Shop())   // Der Customer wird im Shop-register angelegt
 }
 
 fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop angelegt, wo alle Optionen
-    // drinne sind die der Admin auswählen kann
+                                                 // drinne sind die der Admin auswählen kann
     when (account) {
         is AdminAccount -> {
             println("\u001B[35mWillkommen, ${account.username}!\u001b[35m")
