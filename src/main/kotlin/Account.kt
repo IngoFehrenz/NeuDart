@@ -1,6 +1,6 @@
 class CustomerAccount(username: String, password: String, shop: Shop) : Account(username, password, shop) {
     private val cart: MutableList<Product> = mutableListOf()
-    fun addProductToCart(shop: Shop) {
+    fun addProductToCart() {
         println("Artikel zum Warenkorb hinzufügen:")
         println("Bitte geben Sie den Namen des Produkts ein:")
         val productName = readln()
