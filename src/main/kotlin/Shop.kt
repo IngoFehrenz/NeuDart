@@ -17,19 +17,18 @@ val products: MutableList<Product> = mutableListOf()
         val product10 = Product("Dart Trainingsbuch", 8.99, "Trainingsbuch mit Tipps und Uebungen fuer Dartspieler")
         val product11 = Product("Dart Barrels (Set bestehend aus 3 Barrels)", 17.99, "Dart Barrels fuer Dartpfeile")
         val product12 = Product("Dart Spitzen(Beutel mit 1000 Spitzen)", 15.99, "Dart Spitzen fuer Dartpfeile ")
-        addProduct(product1)
-        addProduct(product2)
-        addProduct(product3)
-        addProduct(product4)
-        addProduct(product5)
-        addProduct(product6)
-        addProduct(product7)
-        addProduct(product8)
-        addProduct(product9)
-        addProduct(product10)
-        addProduct(product11)
-        addProduct(product12)
-
+        products.addAll(listOf(product1))
+        products.addAll(listOf(product2))
+        products.addAll(listOf(product3))
+        products.addAll(listOf(product4))
+        products.addAll(listOf(product5))
+        products.addAll(listOf(product6))
+        products.addAll(listOf(product7))
+        products.addAll(listOf(product8))
+        products.addAll(listOf(product9))
+        products.addAll(listOf(product10))
+        products.addAll(listOf(product11))
+        products.addAll(listOf(product12))
     }
 
     fun addProduct(product: Product) {              // Hier werden Produkte hinzugefügt
@@ -128,8 +127,7 @@ val products: MutableList<Product> = mutableListOf()
     }
                                               // Filtert zwischen tiefsten und höchsten Preis
      fun filterByPrice(minPrice: Double, maxPrice: Double): List<Product> {
-         val filteredProducts = products.filter { it.price > minPrice && it.price < maxPrice }
-         return filteredProducts
+         return products.filter { it.price in (minPrice + 0.01)..maxPrice}
      }
 
 }
