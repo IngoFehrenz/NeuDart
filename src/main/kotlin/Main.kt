@@ -13,14 +13,10 @@ fun main() {
     val adminAccount = AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
     userAccounts.add(adminAccount)
     CustomerAccount("customer", "password", shop)                     //Kunden Account erstellen und zum Benutzerkonto zugefügt
-    println("\u001B[34m" +"""
-                              ██████╗░░█████╗░██████╗░████████╗░██████╗██╗░░██╗░█████╗░██████╗░
-                              ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║░░██║██╔══██╗██╔═ ██╗
-                              ██║░░██║███████║██████╔╝░░░██║░░░╚█████╗░███████║██║░░██║██████╔╝
-                              ██║░░██║██╔══██║██╔══██╗░░░██║░░░░╚═══██╗██╔══██║██║░░██║██╔═══╝░
-                              ██████╔╝██║░░██║██║░░██║░░░██║░░░██████╔╝██║░░██║╚█████╔╝██║░░░░░
-                              ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░                           
-                   """+ "\u001B[0m")
+
+    val coloredArtPrinter = ColoredArt()
+    coloredArtPrinter.printColoredArt()
+    11
     Thread.sleep(2000)
 
     println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
@@ -55,14 +51,8 @@ fun main() {
 }
 
 fun login(): Account? {
-    println("\u001B[34m" +"""
-               
-                              ██████╗░░█████╗░██████╗░████████╗░██████╗██╗░░██╗░█████╗░██████╗░
-                              ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║░░██║██╔══██╗██╔═ ██╗
-                              ██║░░██║███████║██████╔╝░░░██║░░░╚█████╗░███████║██║░░██║██████╔╝
-                              ██║░░██║██╔══██║██╔══██╗░░░██║░░░░╚═══██╗██╔══██║██║░░██║██╔═══╝░
-                              ██████╔╝██║░░██║██║░░██║░░░██║░░░██████╔╝██║░░██║╚█████╔╝██║░░░░░
-                              ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░             """+ "\u001B[0m")
+    val coloredArtPrinter = ColoredArt()
+    coloredArtPrinter.printColoredArt()
 
     Thread.sleep(1000)
 
@@ -281,9 +271,10 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
         }
 
         else -> {
-            println("Ungültiger Account. Bitte erneut einloggen.")
-            login()
-        }
+        println("Ungültiger Account. Bitte erneut einloggen.")
+        login()
+    }
+
     }
     displayMenu(account, shop)
 }

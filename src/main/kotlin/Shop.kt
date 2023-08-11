@@ -126,11 +126,12 @@ val products: MutableList<Product> = mutableListOf()
             println("$code - $rabattProzente%")
         }
     }
-     // Filtert zwischen tiefsten und höchsten Preis
+                                              // Filtert zwischen tiefsten und höchsten Preis
      fun filterByPrice(minPrice: Double, maxPrice: Double): List<Product> {
          val filteredProducts = products.filter { it.price > minPrice && it.price < maxPrice }
          return filteredProducts
      }
+
 }
 
 
