@@ -16,7 +16,7 @@ fun main() {
 
     val coloredArtPrinter = ColoredArt()
     coloredArtPrinter.printColoredArt()
-    11
+    111
     Thread.sleep(2000)
 
     println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
@@ -167,12 +167,9 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                     }
                 }
 
-                7 -> { val loggedInAccount = login()
-                    if (loggedInAccount != null) {
-                        displayMenu(loggedInAccount, shop)
-                    } else {
-                        println("Falscher Benutzername oder Passwort.Programm wird beendet.")
-                    }
+                7 -> {
+                    println("Das Programm wird beendet.")
+                    login()
                 }
 
                 else -> {
