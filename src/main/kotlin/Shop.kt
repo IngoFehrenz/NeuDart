@@ -1,5 +1,6 @@
-class Shop {
-    val products: MutableList<Product> = mutableListOf()
+val products: MutableList<Product> = mutableListOf()
+ class Shop {
+
     private val couponCodes: MutableMap<String, Double> = mutableMapOf()
     private val specialOffers: MutableMap<String, Int> = mutableMapOf()
 
@@ -125,6 +126,11 @@ class Shop {
             println("$code - $rabattProzente%")
         }
     }
+     // Filtert zwischen tiefsten und höchsten Preis
+     fun filterByPrice(minPrice: Double, maxPrice: Double): List<Product> {
+         val filteredProducts = products.filter { it.price > minPrice && it.price < maxPrice }
+         return filteredProducts
+     }
 }
 
 

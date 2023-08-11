@@ -4,7 +4,7 @@ class CustomerAccount(username: String, password: String, shop: Shop) : Account(
         println("Artikel zum Warenkorb hinzufügen:")
         println("Bitte geben Sie den Namen des Produkts ein:")
         val productName = readln()
-        val product = this.shop.products.find { it.name == productName }
+        val product = products.find { it.name == productName }
         if (product != null) {
             cart.add(product)
             println("Produkt erfolgreich zum Warenkorb hinzugefügt.")
