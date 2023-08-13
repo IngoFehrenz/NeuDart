@@ -205,7 +205,9 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
             println("\u001B[34m6. Sonderangebote aussuchen\u001B[35m")
             println("\u001B[35m7. Gutscheine einlösen\u001B[35m")
             println("\u001B[35m8. Zahlungsmethode\u001B[35m")
-            println("\u001b[91m9. Logout\u001B[31m")
+            println("\u001B[35m9. Bestellung aufgeben\u001B[35m")
+            println("\u001B[35m10. Bestellung Anzeigen\u001B[35m")
+            println("\u001b[91m11. Logout\u001B[31m")
             when (readln().toIntOrNull()) {        // wenn die Bedingung 1 erfüllt wird, gelange ich den CustomerAccount
                 0 -> {
                     if (account is CustomerAccount) {
@@ -277,6 +279,20 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
 
                 }
                 9 -> {
+                    if (account is CustomerAccount) {
+                        account.placeOrder()
+                    } else {
+                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                    }
+                }
+                10 -> {
+                    if (account is CustomerAccount) {
+                        account.viewOrders()
+                    } else {
+                        println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                    }
+                }
+                11 -> {
                     println("Das Programm wird beendet.")
                     login()
                 }

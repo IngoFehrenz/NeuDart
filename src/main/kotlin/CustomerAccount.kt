@@ -1,6 +1,6 @@
 class CustomerAccount(username: String, password: String, shop: Shop) : Account(username, password, shop) {
     private val cart: MutableList<Product> = mutableListOf()
-
+    private val orders: MutableList<Order> = mutableListOf()
     fun addProductToCart() {
         println("Artikel zum Warenkorb hinzufügen:")
         println("Bitte geben Sie den Namen des Produkts ein:")
@@ -28,4 +28,29 @@ class CustomerAccount(username: String, password: String, shop: Shop) : Account(
     }
 
 
-}
+        fun placeOrder() {
+            if (cart.isNotEmpty()) {
+                val newOrder = Order(this, cart.toList())
+                orders.add(newOrder)
+                cart.clear()
+                println("Bestellung erfolgreich aufgegeben. Bestellnummer: ${newOrder.orderNumber}")
+            } else {
+                println("Der Warenkorb ist leer. Es gibt nichts zu bestellen.")
+            }
+        }
+
+        fun viewOrders() {
+            if (orders.isNotEmpty()) {
+                println("Ihre Bestellungen:")
+                for (order in orders) {
+                    println("Bestellnummer: ${order.orderNumber}")
+                    println("Bestelldatum: ${order.orderDate}")
+                    println("Gesamtpreis: ${order.totalPrice}")
+                    println("---------------------------")
+                }
+            } else {
+                println("Sie haben noch keine Bestellungen aufgegeben.")
+            }
+        }
+    }
+
