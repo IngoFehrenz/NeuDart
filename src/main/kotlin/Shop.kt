@@ -41,7 +41,7 @@ val products: MutableList<Product> = mutableListOf()
 
     fun printProducts() {                           // Gibt die verfügbaren Produkte aus
         println("verfuegbare Produkte:")
-        for (product in products) {
+        for (product in products.subList(1, 13)) {
             println("Name: ${product.name}")
             println("Preis ${product.price}")
             println("Kundenrezension: ${product.review}")
