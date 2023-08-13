@@ -3,7 +3,7 @@ import kotlin.system.exitProcess
 val userAccounts: MutableList<Account> = mutableListOf()
 fun main() {
 
-val text = "\u001B[34mGuten Tag in unserem Dartshop..................."
+    val text = "\u001B[34mGuten Tag in unserem Dartshop..................."
     for (i in 0 until text.length) {      //gehe mit der Forschleife von 0 bis Ende des Textes durch
         print(text[i])
         Thread.sleep(100)         // Wartezeit zwischen den Buchstaben (100 Millisekunden)
@@ -11,16 +11,21 @@ val text = "\u001B[34mGuten Tag in unserem Dartshop..................."
     println()
 
     val shop = Shop()                   // Hier wird der Shop initialisiert
-    val adminAccount = AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
+    val adminAccount =
+        AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
     userAccounts.add(adminAccount)
-    CustomerAccount("customer", "password", shop)                     //Kunden Account erstellen und zum Benutzerkonto zugefügt
+    CustomerAccount(
+        "customer",
+        "password",
+        shop
+    )                     //Kunden Account erstellen und zum Benutzerkonto zugefügt
 
     val coloredArtPrinter = ColoredArt()
     coloredArtPrinter.printColoredArt()
 
     Thread.sleep(2000)
 
-   println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
+    println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
     println("\u001B[36m1. Login")
     println("\u001B[36m2. Registrierung")                      // Registrierung neuer Customer
     when (readln().toIntOrNull()) {                            // wenn die Bedingung 1 erfüllt wird, gelange ich ins Login
@@ -42,9 +47,10 @@ val text = "\u001B[34mGuten Tag in unserem Dartshop..................."
                 displayMenu(customerLoggedInAccount, shop)
             } else {
                 println("Falscher Benutzername oder Passwort. Programm wird beendet.")
-               exitProcess(0)
+                exitProcess(0)
             }
         }
+
         2 -> {
             val registeredAccount = register(shop)     // Hier wird die Registrierung aufgerufen
             if (registeredAccount != null) {
@@ -85,7 +91,7 @@ fun login(): Account? {
 
     return when {
         username == "admin" && password == "admin" -> AdminAccount("admin", "admin", Shop())
-        username == "customer" && password == "password" && age > 12  -> CustomerAccount("customer", "password", Shop())
+        username == "customer" && password == "password" && age > 12 -> CustomerAccount("customer", "password", Shop())
         // gebe zurück, wenn alles übereinstimmt
 
         else -> null          // wenn es nicht überein stimmt, gibt er den Wert null zurück
@@ -109,7 +115,7 @@ fun register(shop: Shop): CustomerAccount? {
 }
 
 fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop angelegt, wo alle Optionen
-                                                 // drinne sind die der Admin auswählen kann
+    // drinne sind die der Admin auswählen kann
     when (account) {
 
         is AdminAccount -> {
@@ -136,6 +142,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
 
                 2 -> {
                     shop.printProductReviews()         // Hier werden die Bewertungen der Produkte ausgegeben
+                    displayMenu(account, shop)
                 }
 
                 3 -> {
@@ -146,6 +153,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
                         println("------------------------------")      // Hier werden die Produkte aufsteigen nach Preis sortiert
+                        displayMenu(account, shop)
                     }
                 }
 
@@ -157,6 +165,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
                         println("------------------------------")       // Hier werden die Produkte nach Alphabet sortiert
+                        displayMenu(account, shop)
                     }
                 }
 
@@ -168,8 +177,10 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                     if (productName != null && quantity != null) {
                         shop.addSpecialOffer(quantity, productName)
                         println("Sonderangebote erfolgreich hinzugefügt.")
+                        displayMenu(account, shop)
                     } else {
                         println("Ungültige Eingabe. Sonderangebot konnte nicht hinzugefügt werden.")
+                        displayMenu(account, shop)
                     }
                 }
 
@@ -182,8 +193,10 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         // dem entsprechenden Rabatt zum Shop hinzugefügt
                         shop.addCoupnCode(code, discount)
                         println("Gutscheincode erfolgreich hinzugefügt.")
+                        displayMenu(account, shop)
                     } else {
                         println("Ungültige Eingabe. Gutscheincode konnte nicht hinzugefügt werden.")
+                        displayMenu(account, shop)
                     }
                 }
 
@@ -225,12 +238,14 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                     }
 
                 }
+
                 1 -> {
                     if (account is CustomerAccount) {      //Hier werden die Produkte zum Warenkorb hinzugefügt
                         account.addProductToCart()
+                        displayMenu(account, shop)
                     } else {
                         println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
-
+                        displayMenu(account, shop)
                     }
 
                 }
@@ -238,14 +253,17 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                 2 -> {
                     if (account is CustomerAccount) {      //Hier wird der Warenkorb ausgegeben
                         account.printCart()
+                        displayMenu(account, shop)
                     } else {
                         println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                        displayMenu(account, shop)
                     }
 
                 }
 
                 3 -> {
                     shop.printProductReviews()             // Hier werden die Bewertungen der Produkte ausgegeben
+                    displayMenu(account, shop)
                 }
 
                 4 -> {
@@ -256,6 +274,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
                         println("------------------------------")         // Hier werden die Produkte aufsteigen nach Preis sortiert
+                        displayMenu(account, shop)
                     }
                 }
 
@@ -267,13 +286,18 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
                         println("------------------------------")          // Hier werden die Produkte nach Alphabet sortiert
+                        displayMenu(account, shop)
                     }
                 }
 
                 6 -> {
                     shop.displaySpecialOffers()
-                    shop.addSpecialOffer(3, "Produkt A")    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
+                    shop.addSpecialOffer(
+                        3,
+                        "Produkt A"
+                    )    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
                     shop.addSpecialOffer(5, "Produkt B")
+                    displayMenu(account, shop)
 
                 }
 
@@ -281,29 +305,39 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                     shop.displayCouponCodes()                                    //fügt einen neuen Gutschein-Code hinzu, der im Shop verwendet werden kann. Der Gutschein-Code „CODE123“ hat einen Rabatt von 10 %.
                     shop.addCoupnCode("CODE123", 10.0)
                     shop.addCoupnCode("CODE456", 20.0)
+                    displayMenu(account, shop)
                 }
+
                 8 -> {
                     val zahlungsmethode = Payment()
                     zahlungsmethode.selectPayment()
+                    displayMenu(account, shop)
 
                 }
+
                 9 -> {
                     if (account is CustomerAccount) {
                         account.placeOrder()
+                        displayMenu(account, shop)
                     } else {
                         println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                        displayMenu(account, shop)
                     }
                 }
+
                 10 -> {
                     if (account is CustomerAccount) {
                         account.viewOrders()
+                        displayMenu(account, shop)
                     } else {
                         println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
+                        displayMenu(account, shop)
                     }
                 }
+
                 11 -> {
                     println("Das Programm wird beendet.")
-                    login()
+
                 }
 
                 else -> {
@@ -313,9 +347,9 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
         }
 
         else -> {
-        println("Ungültiger Account. Bitte erneut einloggen.")
-        login()
-    }
+            println("Ungültiger Account. Bitte erneut einloggen.")
+            login()
+        }
 
     }
 

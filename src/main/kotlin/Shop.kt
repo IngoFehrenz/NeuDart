@@ -1,12 +1,14 @@
 val products: MutableList<Product> = mutableListOf()
- class Shop {
+
+class Shop {
 
     private val couponCodes: MutableMap<String, Double> = mutableMapOf()
     private val specialOffers: MutableMap<String, Int> = mutableMapOf()
 
     init {         // Erstellung der Produktliste mit Preis und Bezeichnung
         val product1 = Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger")
-        val product2 = Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
+        val product2 =
+            Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
         val product3 = Product("Dartcase", 14.99, "Transportkoffer fuer Dartpfeile")
         val product4 = Product("Dartmatte", 29.99, "Rutschfeste Matte fuer praezises werfen.")
         val product5 = Product("Dart Flights(Set of 10)", 9.99, "Verschiedene Designs fuer Dartpfeile")
@@ -32,7 +34,7 @@ val products: MutableList<Product> = mutableListOf()
     }
 
     fun addProduct(product: Product) {              // Hier werden Produkte hinzugefügt
-        if(products.none { it.name == product.name}) {
+        if (products.none { it.name == product.name }) {
             products.add(product)
         } else {
             println("Das Product mit name '${product.name}'existiert bereits.")
@@ -58,13 +60,14 @@ val products: MutableList<Product> = mutableListOf()
             println("-----------------------------")
         }
     }
-    fun getProductsSortedByPriceAscending(): List<Product>  {       //Sortierte Preisliste der Produkte
-        return products.sortedBy { it.price}
-    }
-    fun getProductsSortedAlphabetically(): List<Product> {        // Alphabetische Liste sortiert
-        return products.sortedBy { it.name}
+
+    fun getProductsSortedByPriceAscending(): List<Product> {       //Sortierte Preisliste der Produkte
+        return products.sortedBy { it.price }
     }
 
+    fun getProductsSortedAlphabetically(): List<Product> {        // Alphabetische Liste sortiert
+        return products.sortedBy { it.name }
+    }
 
 
     fun addSpecialOffer(quantity: Int?, productName: String?) {     // Eingabe Produktname und Menge
@@ -81,6 +84,7 @@ val products: MutableList<Product> = mutableListOf()
         couponCodes[code] = rabattProzente
 
     }
+
     // Funktion zum Einlösen eines Gutscheincodes und Anwenden des Rabatts auf den Gesamtpreis
     fun applyCouponCode(code: String, totalPrice: Double): Double {
         val rabattProzente = couponCodes[code]
@@ -90,15 +94,19 @@ val products: MutableList<Product> = mutableListOf()
         }
         return totalPrice
     }
-    private fun calculateSpecialOfferPrice(product: Product, quantity: Int): Double {      // Rechnung der Sonderanderangebote
+
+    private fun calculateSpecialOfferPrice(
+        product: Product, quantity: Int
+    ): Double {      // Rechnung der Sonderanderangebote
         val Angebotsmenge = specialOffers[product.name]
-        if (Angebotsmenge != null && quantity >= Angebotsmenge){
+        if (Angebotsmenge != null && quantity >= Angebotsmenge) {
             val regulaererPreis = product.price * quantity
-            val herabgesetzterPreis = product.price * (quantity - (quantity/Angebotsmenge))
-            return minOf(regulaererPreis,herabgesetzterPreis)
+            val herabgesetzterPreis = product.price * (quantity - (quantity / Angebotsmenge))
+            return minOf(regulaererPreis, herabgesetzterPreis)
         }
         return product.price * quantity
     }
+
     // Funktion zum Berechnen des Gesamtpreises des Warenkorbs mit Berücksichtigung von Sonderangeboten
     fun calculateCartTotalPrice(cart: List<Product>): Double {
         var totalPrice = 0.0
@@ -109,6 +117,7 @@ val products: MutableList<Product> = mutableListOf()
 
         return totalPrice
     }
+
     fun getSpecialOffers(): Map<String, Int> {      //Hier werden die Sonderangebote angelegt
         return specialOffers
     }
@@ -130,10 +139,11 @@ val products: MutableList<Product> = mutableListOf()
             println("$code - $rabattProzente%")
         }
     }
-                                              // Filtert zwischen tiefsten und höchsten Preis
-     fun filterByPrice(minPrice: Double, maxPrice: Double): List<Product> {
-         return products.filter { it.price in (minPrice + 0.01)..maxPrice}
-     }
+
+    // Filtert zwischen tiefsten und höchsten Preis
+    fun filterByPrice(minPrice: Double, maxPrice: Double): List<Product> {
+        return products.filter { it.price in (minPrice + 0.01)..maxPrice }
+    }
 
 }
 

@@ -7,7 +7,7 @@ class AdminAccount(username: String, password: String, shop: Shop) : Account(use
         val price = readln().replace(',', '.').toDoubleOrNull()
         println("Bitte geben Sie die Kundenrezension des Produkts ein:")
         val review = readln()
-        if (name!= null && price != null && review != null){
+        if (name != null && price != null && review != null) {
             val product = Product(name, price, review)
             shop.addProduct(product)
             println("Produkt erfolgreich hinzugefügt.")
