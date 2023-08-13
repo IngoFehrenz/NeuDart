@@ -2,7 +2,8 @@ import kotlin.system.exitProcess
 
 val userAccounts: MutableList<Account> = mutableListOf()
 fun main() {
-    val text = "\u001B[34mGuten Tag in unserem Dartshop..................."
+
+val text = "\u001B[34mGuten Tag in unserem Dartshop..................."
     for (i in 0 until text.length) {      //gehe mit der Forschleife von 0 bis Ende des Textes durch
         print(text[i])
         Thread.sleep(100)         // Wartezeit zwischen den Buchstaben (100 Millisekunden)
@@ -19,17 +20,27 @@ fun main() {
 
     Thread.sleep(2000)
 
-    println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
+   println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
     println("\u001B[36m1. Login")
     println("\u001B[36m2. Registrierung")                      // Registrierung neuer Customer
     when (readln().toIntOrNull()) {                            // wenn die Bedingung 1 erfüllt wird, gelange ich ins Login
         1 -> {
-            // Benutzer-Login
-            val loggedInAccount = login()
-            if (loggedInAccount != null) {                          // Login Überpfüfung
-                displayMenu(loggedInAccount, shop)
+            // Änderung: Anmeldung als Administrator
+            val adminLoggedInAccount = login()
+            if (adminLoggedInAccount is AdminAccount) {
+                displayMenu(adminLoggedInAccount, shop)
+                logout()
             } else {
-                println("Falscher Benutzername oder Passwort.Programm wird beendet.")        // Fehlermeldung bei falschen Eingaben
+                println("Falscher Benutzername oder Passwort. Programm wird beendet.")
+                exitProcess(0)
+            }
+
+            // Änderung: Anmeldung als Kunde
+            val customerLoggedInAccount = login()
+            if (customerLoggedInAccount is CustomerAccount) {
+                displayMenu(customerLoggedInAccount, shop)
+            } else {
+                println("Falscher Benutzername oder Passwort. Programm wird beendet.")
                 exitProcess(0)
             }
         }
@@ -53,6 +64,7 @@ fun main() {
 
 }
 
+
 fun login(): Account? {
     val coloredArtPrinter = ColoredArt()
     coloredArtPrinter.printColoredArt()
@@ -67,11 +79,12 @@ fun login(): Account? {
     val password = readln()
     println("\u001B[36mBitte geben sie Ihr Alter ein:")
 
-    val age = readln().toInt()
+    val age = readln()?.toIntOrNull() ?: 0
+
 
     return when {
         username == "admin" && password == "admin" -> AdminAccount("admin", "admin", Shop())
-        username == "customer" && password == "password" && age <= 12  -> CustomerAccount("customer", "password", Shop())
+        username == "customer" && password == "password" && age > 12  -> CustomerAccount("customer", "password", Shop())
         // gebe zurück, wenn alles übereinstimmt
 
         else -> null          // wenn es nicht überein stimmt, gibt er den Wert null zurück
@@ -87,9 +100,9 @@ fun register(shop: Shop): CustomerAccount? {
     val password = readln()
     println("\u001B[36mBitte geben Sie Ihr Alter ein:")
     val age = readln().toInt()
-    if (age <= 12) {
+    if (age > 12) {
         println("Sie müssen mindestens 12 Jahre alt sein,um sich zu registrieren.")
-        exitProcess(0)
+        return null
     }                            // Ist er keine 12 Jahre alt, kann er sich hier nicht registrieren
     return CustomerAccount(username, password, Shop())   // Der Customer wird im Shop-register angelegt
 }
@@ -170,8 +183,8 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                 }
 
                 7 -> {
-                    println("Das Programm wird beendet.")
-                    login()
+                    println("Logout erfolgreich..")
+                    login()              // Return to main menü
                 }
 
                 else -> {
@@ -191,7 +204,8 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
             println("\u001B[32m5. Nach Alphabet sortieren\u001B[35m")
             println("\u001B[34m6. Sonderangebote aussuchen\u001B[35m")
             println("\u001B[35m7. Gutscheine einlösen\u001B[35m")
-            println("\u001b[91m8. Logout\u001B[31m")
+            println("\u001B[35m8. Zahlungsmethode\u001B[35m")
+            println("\u001b[91m9. Logout\u001B[31m")
             when (readln().toIntOrNull()) {        // wenn die Bedingung 1 erfüllt wird, gelange ich den CustomerAccount
                 0 -> {
                     if (account is CustomerAccount) {
@@ -257,8 +271,12 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                     shop.addCoupnCode("CODE123", 10.0)
                     shop.addCoupnCode("CODE456", 20.0)
                 }
-
                 8 -> {
+                    val zahlungsmethode = Payment()
+                    zahlungsmethode.selectPayment()
+
+                }
+                9 -> {
                     println("Das Programm wird beendet.")
                     login()
                 }
@@ -275,8 +293,19 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
     }
 
     }
-    displayMenu(account, shop)
+
 }
+
+fun logout() {
+    println("Sie wurden ausgeloggt.")
+}
+
+
+
+
+
+
+
 
 
 

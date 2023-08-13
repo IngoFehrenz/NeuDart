@@ -32,7 +32,11 @@ val products: MutableList<Product> = mutableListOf()
     }
 
     fun addProduct(product: Product) {              // Hier werden Produkte hinzugefügt
-        products.add(product)
+        if(products.none { it.name == product.name}) {
+            products.add(product)
+        } else {
+            println("Das Product mit name '${product.name}'existiert bereits.")
+        }
     }
 
     fun printProducts() {                           // Gibt die verfügbaren Produkte aus
@@ -42,6 +46,7 @@ val products: MutableList<Product> = mutableListOf()
             println("Preis ${product.price}")
             println("Kundenrezension: ${product.review}")
             println("---------------------------")
+
         }
     }
 
