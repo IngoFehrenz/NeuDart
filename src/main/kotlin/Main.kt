@@ -44,6 +44,7 @@ fun main() {
             if (customerLoggedInAccount is CustomerAccount) {
                 displayMenu(customerLoggedInAccount, shop)
             } else {
+
                 println("Falscher Benutzername oder Passwort. Programm wird beendet.")
                 exitProcess(0)
             }
