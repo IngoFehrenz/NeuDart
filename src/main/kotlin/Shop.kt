@@ -11,7 +11,8 @@ class Shop {
 
     init {         // Erstellung der Produktliste mit Preis und Bezeichnung
         val product1 = Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger")
-        val product2 = Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
+        val product2 =
+            Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
         val product3 = Product("Dartcase", 14.99, "Transportkoffer fuer Dartpfeile")
         val product4 = Product("Dartmatte", 29.99, "Rutschfeste Matte fuer praezises werfen.")
         val product5 = Product("Dart Flights(Set of 10)", 9.99, "Verschiedene Designs fuer Dartpfeile")
