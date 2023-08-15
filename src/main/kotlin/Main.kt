@@ -15,15 +15,13 @@ fun main() {
         AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
     userAccounts.add(adminAccount)
     CustomerAccount(
-        "customer",
-        "password",
-        shop
+        "customer", "password", shop
     )                     //Kunden Account erstellen und zum Benutzerkonto zugefügt
 
     val coloredArtPrinter = ColoredArt()
     coloredArtPrinter.printColoredArt()
 
-    Thread.sleep(2000)
+    Thread.sleep(200)
 
     println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
     println("\u001B[36m1. Login")
@@ -34,7 +32,7 @@ fun main() {
             val adminLoggedInAccount = login()
             if (adminLoggedInAccount is AdminAccount) {
                 displayMenu(adminLoggedInAccount, shop)
-                logout()
+
             } else {
                 println("Falscher Benutzername oder Passwort. Programm wird beendet.")
                 exitProcess(0)
@@ -76,7 +74,7 @@ fun login(): Account? {
     val coloredArtPrinter = ColoredArt()
     coloredArtPrinter.printColoredArt()
 
-    Thread.sleep(1000)
+    Thread.sleep(500)
 
 
     println("Benutzer-Login:")
@@ -337,7 +335,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
 
                 11 -> {
                     println("Das Programm wird beendet.")
-
+                    logout()
                 }
 
                 else -> {
