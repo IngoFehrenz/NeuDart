@@ -31,7 +31,7 @@ fun main() {
             // Änderung: Anmeldung als Administrator
             val adminLoggedInAccount = login()
             if (adminLoggedInAccount is AdminAccount) {
-                displayMenu(adminLoggedInAccount, shop)
+                displayMenu(adminLoggedInAccount , shop)
 
             } else {
                 println("Falscher Benutzername oder Passwort. Programm wird beendet.")
