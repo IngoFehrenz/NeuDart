@@ -6,3 +6,8 @@ Jetzt habe ich die fehlenden 6 Classen und Funktionen noch hinzugefügt.
 Des weiteren haben mir Andreas Pelczer, Alexandros Theodoropoulos, Max Brockauf und Chris Seitz
 aus Batch 9 dabei geholfen. Da wir immer noch zusammen arbeiten.
 */
+
+
+/*val userAccounts: MutableList<Account> = mutableListOf()
+if
+    when*/

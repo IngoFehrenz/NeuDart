@@ -11,93 +11,80 @@ fun main() {
     println()
 
     val shop = Shop()                   // Hier wird der Shop initialisiert
-    val adminAccount =
-        AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
+    val adminAccount = AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
     userAccounts.add(adminAccount)
-    CustomerAccount(
-        "customer",
-        "password",
-        shop
-    )                     //Kunden Account erstellen und zum Benutzerkonto zugefügt
+    val age = 0
+    CustomerAccount("customer", "password", age, shop) //Kunden Account erstellen und zum Benutzerkonto zugefügt
+    userAccounts.add(CustomerAccount("customer", "password", age, shop))
 
     val coloredArtPrinter = ColoredArt()
     coloredArtPrinter.printColoredArt()
 
     Thread.sleep(200)
-
+    while (true) {
     println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
     println("\u001B[36m1. Login")
-    println("\u001B[36m2. Registrierung")                      // Registrierung neuer Customer
+    println("\u001B[36m2. Registrierung")
+    println("\u001B[36m3. Beenden")
     when (readln().toIntOrNull()) {                            // wenn die Bedingung 1 erfüllt wird, gelange ich ins Login
         1 -> {
-            // Änderung: Anmeldung als Administrator
-            val loginAccount = login()
-
-
-
-            if (loginAccount is AdminAccount) {
-                displayMenu(loginAccount , shop)
-
-            } else if (loginAccount is CustomerAccount) {
-                displayMenu(loginAccount, shop)
+            val loggedInAccount = login()
+            if (loggedInAccount is AdminAccount || loggedInAccount is CustomerAccount) {
+                displayMenu(loggedInAccount, shop)
             } else {
-
-                println("Falscher Benutzername oder Passwort. Programm wird beendet.")
-                exitProcess(0)
+                println("Falsche Anmeldedaten.")
             }
-
-
         }
-
-
-
-    2 -> {
-        val registeredAccount = register(shop)     // Hier wird die Registrierung aufgerufen
-        if (registeredAccount != null) {
-            userAccounts.add(registeredAccount)
-            displayMenu(registeredAccount, shop)
-
-        } else {
-            println("Benutzerregiestrierung fehlgeschlagen.Programm wird beendet.") // Fehlermeldung bei falschen Eingaben
+        2 -> {
+            val registeredAccount = register(shop)
+            if (registeredAccount != null) {
+                userAccounts.add(registeredAccount)
+                displayMenu(registeredAccount, shop)
+            } else {
+                println("Benutzerregistrierung fehlgeschlagen.")
+            }
+        }
+        3 -> {
+            println("Auf Wiedersehen!")
             exitProcess(0)
         }
+        else -> {
+            println("Ungültige Eingabe.")
+        }
     }
-
-    else -> {
-        println("Ungueltige Eingabe.Programm wird beendet.")
-        exitProcess(0)
     }
 }
-
-}
-
-
 fun login(): Account? {
     val coloredArtPrinter = ColoredArt()
     coloredArtPrinter.printColoredArt()
 
     Thread.sleep(500)
 
-
     println("Benutzer-Login:")
-    println("\u001B[36mBitte geben sie Ihren benutzernamen ein:")
-    val username = readln()
-    println("\u001B[36mBitte geben sie Ihr Passwort ein:")
-    val password = readln()
-    println("\u001B[36mBitte geben sie Ihr Alter ein:")
-
-    val age = readln()?.toIntOrNull() ?: 0
-
-
-    return when {
-        username == "admin" && password == "admin" -> AdminAccount("admin", "admin", Shop())
-
-        username == "customer" && password == "password" && age > 12 -> CustomerAccount("customer", "password", Shop())
-        // gebe zurück, wenn alles übereinstimmt
-
-        else -> null          // wenn es nicht überein stimmt, gibt er den Wert null zurück
+    println("\u001B[36mBitte geben Sie Ihren Benutzernamen ein:")
+    val username = readln() ?: ""
+    println("Bitte geben Sie Ihr Passwort ein:")
+    val password = readln() ?: ""
+    val adminAccountMatch = userAccounts.any {
+        it.username == username && it.password == password && it is AdminAccount
     }
-
+    val customerAccountMatch = userAccounts.any {
+        it.username == username && it.password == password && it is CustomerAccount
+    }
+    if (adminAccountMatch) {
+        return AdminAccount(username, password, Shop())
+    } else if (customerAccountMatch) {
+        println("Bitte geben Sie Ihr Alter ein:")
+        val age = readln()?.toIntOrNull() ?: 0
+        if (age >= 12) {
+            return CustomerAccount(username, password, age, Shop())
+        } else {
+            println("Sie sind zu jung, um sich anzumelden.")
+        }
+    } else {
+        println("Kein passendes Konto gefunden.")
+    }
+    return null
 }
 
 fun register(shop: Shop): CustomerAccount? {
@@ -108,11 +95,11 @@ fun register(shop: Shop): CustomerAccount? {
     val password = readln()
     println("\u001B[36mBitte geben Sie Ihr Alter ein:")
     val age = readln().toInt()
-    if (age < 12) {
+    if (age <= 12) {
         println("Sie müssen mindestens 12 Jahre alt sein,um sich zu registrieren.")
         return null
     }                            // Ist er keine 12 Jahre alt, kann er sich hier nicht registrieren
-    return CustomerAccount(username, password, shop)   // Der Customer wird im Shop-register angelegt
+    return CustomerAccount(username, password, age, shop)   // Der Customer wird im Shop-register angelegt
 }
 
 fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop angelegt, wo alle Optionen
@@ -139,7 +126,6 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         displayMenu(account, shop)
                     }
                 }
-
 
                 2 -> {
                     shop.printProductReviews()         // Hier werden die Bewertungen der Produkte ausgegeben
@@ -299,7 +285,6 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                     )    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
                     shop.addSpecialOffer(5, "Produkt B")
                     displayMenu(account, shop)
-
                 }
 
                 7 -> {
@@ -339,7 +324,6 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                 11 -> {
                     logout()
 
-
                 }
 
                 else -> {
@@ -347,20 +331,18 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                 }
             }
         }
-
         else -> {
             println("Ungültiger Account. Bitte erneut einloggen.")
             login()
         }
-
     }
-
 }
 
 fun logout() {
     println("Sie wurden ausgeloggt.")
-    login()
+
 }
+
 
 
 

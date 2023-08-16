@@ -1,4 +1,4 @@
-class CustomerAccount(username: String, password: String, shop: Shop) : Account(username, password, shop) {
+class CustomerAccount(username: String, password: String, age: Int, shop: Shop) : Account(username, password, shop) {
     private val cart: MutableList<Product> = mutableListOf()
     private val orders: MutableList<Order> = mutableListOf()
     fun addProductToCart() {
