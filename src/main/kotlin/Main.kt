@@ -21,7 +21,9 @@ fun main() {
     coloredArtPrinter.printColoredArt()
 
     Thread.sleep(200)
+
     while (true) {
+
     println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
     println("\u001B[36m1. Login")
     println("\u001B[36m2. Registrierung")
@@ -46,7 +48,7 @@ fun main() {
         }
         3 -> {
             println("Auf Wiedersehen!")
-            exitProcess(0)
+            return
         }
         else -> {
             println("Ungültige Eingabe.")
@@ -59,7 +61,8 @@ fun login(): Account? {
     coloredArtPrinter.printColoredArt()
 
     Thread.sleep(500)
-
+    var AdminAccount = ""
+    var CustomerAccount = ""
     println("Benutzer-Login:")
     println("\u001B[36mBitte geben Sie Ihren Benutzernamen ein:")
     val username = readln() ?: ""
@@ -189,7 +192,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
 
                 7 -> {
                     println("Logout erfolgreich..")
-                    login()              // Return to main menü
+                    return             // Return to main menü
                 }
 
                 else -> {
@@ -322,8 +325,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                 }
 
                 11 -> {
-                    logout()
-
+                    return
                 }
 
                 else -> {
@@ -338,10 +340,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
     }
 }
 
-fun logout() {
-    println("Sie wurden ausgeloggt.")
 
-}
 
 
 
