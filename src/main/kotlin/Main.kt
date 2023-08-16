@@ -21,7 +21,7 @@ fun main() {
     coloredArtPrinter.printColoredArt()
 
     Thread.sleep(200)
-
+    // Schleife läuft solange wie sie true ist,solange ein Customer oder Admin eingeloggt ist
     while (true) {
 
     println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
