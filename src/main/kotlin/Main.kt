@@ -61,31 +61,46 @@ fun login(): Account? {
     coloredArtPrinter.printColoredArt()
 
     Thread.sleep(500)
-    var AdminAccount = ""
-    var CustomerAccount = ""
-    println("Benutzer-Login:")
-    println("\u001B[36mBitte geben Sie Ihren Benutzernamen ein:")
-    val username = readln() ?: ""
-    println("Bitte geben Sie Ihr Passwort ein:")
-    val password = readln() ?: ""
-    val adminAccountMatch = userAccounts.any {
-        it.username == username && it.password == password && it is AdminAccount
-    }
-    val customerAccountMatch = userAccounts.any {
-        it.username == username && it.password == password && it is CustomerAccount
-    }
-    if (adminAccountMatch) {
-        return AdminAccount(username, password, Shop())
-    } else if (customerAccountMatch) {
-        println("Bitte geben Sie Ihr Alter ein:")
-        val age = readln()?.toIntOrNull() ?: 0
-        if (age >= 12) {
-            return CustomerAccount(username, password, age, Shop())
+    println("\u001B[36mWillkommen zum Login-Bildschirm.")
+    println("\u001B[36mWollen Sie sich als Administrator oder Kunde anmelden?")
+    println("\u001B[36m1. Administrator")
+    println("\u001B[36m2. Kunde")
+    val choice = readln() ?: ""
+
+    if (choice == "1") {
+        println("Bitte geben Sie Ihren Benutzernamen ein:")
+        val username = readln() ?: ""
+        println("Bitte geben Sie Ihr Passwort ein:")
+        val password = readln() ?: ""
+        val adminAccountMatch = userAccounts.any {
+            it.username == username && it.password == password && it is AdminAccount
+        }
+        if (adminAccountMatch) {
+            return AdminAccount(username, password, Shop())
         } else {
-            println("Sie sind zu jung, um sich anzumelden.")
+            println("Benutzername oder Passwort ist falsch.")
+        }
+    } else if (choice == "2") {
+        println("Bitte geben Sie Ihren Benutzernamen ein:")
+        val username = readln() ?: ""
+        println("Bitte geben Sie Ihr Passwort ein:")
+        val password = readln() ?: ""
+        val customerAccountMatch = userAccounts.any {
+            it.username == username && it.password == password && it is CustomerAccount
+        }
+        if (customerAccountMatch) {
+            println("Bitte geben Sie Ihr Alter ein:")
+            val age = readln()?.toIntOrNull() ?: 0
+            if (age >= 12) {
+                return CustomerAccount(username, password, age, Shop())
+            } else {
+                println("Sie sind zu jung, um sich anzumelden.")
+            }
+        } else {
+            println("Benutzername oder Passwort ist falsch.")
         }
     } else {
-        println("Kein passendes Konto gefunden.")
+        println("Ungültige Eingabe.")
     }
     return null
 }
