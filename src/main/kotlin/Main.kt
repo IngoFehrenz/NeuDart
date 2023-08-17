@@ -285,8 +285,9 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
                         println("------------------------------")         // Hier werden die Produkte aufsteigen nach Preis sortiert
-                        displayMenu(account, shop)
+
                     }
+                    displayMenu(account, shop)
                 }
 
                 5 -> {
@@ -297,8 +298,9 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
                         println("------------------------------")          // Hier werden die Produkte nach Alphabet sortiert
-                        displayMenu(account, shop)
+
                     }
+                        displayMenu(account, shop)
                 }
 
                 6 -> {
