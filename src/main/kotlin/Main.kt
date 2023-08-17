@@ -299,16 +299,18 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                 }
 
                 6 -> {
-                    shop.displaySpecialOffers()
+
                     shop.addSpecialOffer(3, "Produkt A")    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
                     shop.addSpecialOffer(5, "Produkt B")
+                    shop.displaySpecialOffers()
                     displayMenu(account, shop)
                 }
 
                 7 -> {
-                    shop.displayCouponCodes()                                    //fügt einen neuen Gutschein-Code hinzu, der im Shop verwendet werden kann. Der Gutschein-Code „CODE123“ hat einen Rabatt von 10 %.
+                                                        //fügt einen neuen Gutschein-Code hinzu, der im Shop verwendet werden kann. Der Gutschein-Code „CODE123“ hat einen Rabatt von 10 %.
                     shop.addCoupnCode("CODE123", 10.0)
                     shop.addCoupnCode("CODE456", 20.0)
+                    shop.displayCouponCodes()
                     displayMenu(account, shop)
                 }
 
