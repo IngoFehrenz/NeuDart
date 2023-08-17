@@ -2,40 +2,25 @@
 damit sie Global ist, damit man aus jeder Classe drauf zugreifen kann.
 
 */
-val products: MutableList<Product> = mutableListOf()
+val products: MutableList<Product> = mutableListOf(
+Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger"),
+Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch."),
+Product("Dartcase", 14.99, "Transportkoffer fuer Dartpfeile"),
+Product("Dartmatte", 29.99, "Rutschfeste Matte fuer praezises werfen."),
+Product("Dart Flights(Set of 10)", 9.99, "Verschiedene Designs fuer Dartpfeile"),
+Product("Dart Shafts (Set of 5)", 25.99, "Ersatz-Schaefte für DartPfeile"),
+Product("Dart Point Sharpener)", 6.99, "Schleifwerkzeug zum schaerfen der Dartspitzen"),
+Product("Dartboard Surround", 24.99, "Schutzring fuer das Dartboard"),
+Product("Dart Scoreboard", 35.99, "Elektronisches Scoreboard fuer die Dartspiele"),
+Product("Dart Trainingsbuch", 8.99, "Trainingsbuch mit Tipps und Uebungen fuer Dartspieler"),
+Product("Dart Barrels (Set bestehend aus 3 Barrels)", 17.99, "Dart Barrels fuer Dartpfeile"),
+Product("Dart Spitzen(Beutel mit 1000 Spitzen)", 15.99, "Dart Spitzen fuer Dartpfeile ")
+)
 
 class Shop {
 
     private val couponCodes: MutableMap<String, Double> = mutableMapOf()
     private val specialOffers: MutableMap<String, Int> = mutableMapOf()
-
-
-    init {         // Erstellung der Produktliste mit Preis und Bezeichnung
-        val product1 = Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger")
-        val product2 = Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
-        val product3 = Product("Dartcase", 14.99, "Transportkoffer fuer Dartpfeile")
-        val product4 = Product("Dartmatte", 29.99, "Rutschfeste Matte fuer praezises werfen.")
-        val product5 = Product("Dart Flights(Set of 10)", 9.99, "Verschiedene Designs fuer Dartpfeile")
-        val product6 = Product("Dart Shafts (Set of 5)", 25.99, "Ersatz-Schaefte für DartPfeile")
-        val product7 = Product("Dart Point Sharpener)", 6.99, "Schleifwerkzeug zum schaerfen der Dartspitzen")
-        val product8 = Product("Dartboard Surround", 24.99, "Schutzring fuer das Dartboard")
-        val product9 = Product("Dart Scoreboard", 35.99, "Elektronisches Scoreboard fuer die Dartspiele")
-        val product10 = Product("Dart Trainingsbuch", 8.99, "Trainingsbuch mit Tipps und Uebungen fuer Dartspieler")
-        val product11 = Product("Dart Barrels (Set bestehend aus 3 Barrels)", 17.99, "Dart Barrels fuer Dartpfeile")
-        val product12 = Product("Dart Spitzen(Beutel mit 1000 Spitzen)", 15.99, "Dart Spitzen fuer Dartpfeile ")
-        products.addAll(listOf(product1))
-        products.addAll(listOf(product2))
-        products.addAll(listOf(product3))
-        products.addAll(listOf(product4))
-        products.addAll(listOf(product5))
-        products.addAll(listOf(product6))
-        products.addAll(listOf(product7))
-        products.addAll(listOf(product8))
-        products.addAll(listOf(product9))
-        products.addAll(listOf(product10))
-        products.addAll(listOf(product11))
-        products.addAll(listOf(product12))
-    }
 
     fun addProduct(product: Product) {              // Hier werden Produkte hinzugefügt
         if (products.none { it.name == product.name }) {
@@ -70,10 +55,10 @@ class Shop {
         return products.sortedBy { it.price }
     }
 
-    fun getProductsSortedAlphabetically(): List<Product> {        // Alphabetische Liste sortiert
-        return products.sortedBy { it.name }
+   fun getProductsSortedAlphabetically(): List<Product> {       // Alphabetische Liste sortiert
+       return products.sortedBy { it.name }
+   }
 
-    }
 
 
     fun addSpecialOffer(quantity: Int?, productName: String?) {     // Eingabe Produktname und Menge
