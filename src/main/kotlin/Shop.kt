@@ -11,8 +11,7 @@ class Shop {
 
     init {         // Erstellung der Produktliste mit Preis und Bezeichnung
         val product1 = Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger")
-        val product2 =
-            Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
+        val product2 = Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")
         val product3 = Product("Dartcase", 14.99, "Transportkoffer fuer Dartpfeile")
         val product4 = Product("Dartmatte", 29.99, "Rutschfeste Matte fuer praezises werfen.")
         val product5 = Product("Dart Flights(Set of 10)", 9.99, "Verschiedene Designs fuer Dartpfeile")
@@ -40,6 +39,7 @@ class Shop {
     fun addProduct(product: Product) {              // Hier werden Produkte hinzugefügt
         if (products.none { it.name == product.name }) {
             products.add(product)
+
         } else {
             println("Das Product mit name '${product.name}'existiert bereits.")
         }
@@ -47,7 +47,7 @@ class Shop {
 
     fun printProducts() {                           // Gibt die verfügbaren Produkte aus
         println("verfuegbare Produkte:")
-        for (product in products.subList(1, 13)) {
+        for (product in products) {
             println("Name: ${product.name}")
             println("Preis ${product.price}")
             println("Kundenrezension: ${product.review}")
@@ -71,6 +71,7 @@ class Shop {
 
     fun getProductsSortedAlphabetically(): List<Product> {        // Alphabetische Liste sortiert
         return products.sortedBy { it.name }
+
     }
 
 
