@@ -61,6 +61,7 @@ fun login(): Account? {
     coloredArtPrinter.printColoredArt()
 
     Thread.sleep(500)
+
     println("\u001B[36mWillkommen zum Login-Bildschirm.")
     println("\u001B[36mWollen Sie sich als Administrator oder Kunde anmelden?")
     println("\u001B[36m1. Administrator")
