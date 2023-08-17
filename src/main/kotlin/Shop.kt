@@ -3,18 +3,18 @@ damit sie Global ist, damit man aus jeder Classe drauf zugreifen kann.
 
 */
 val products: MutableList<Product> = mutableListOf(
-Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger"),
-Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch."),
-Product("Dartcase", 14.99, "Transportkoffer fuer Dartpfeile"),
-Product("Dartmatte", 29.99, "Rutschfeste Matte fuer praezises werfen."),
-Product("Dart Flights(Set of 10)", 9.99, "Verschiedene Designs fuer Dartpfeile"),
-Product("Dart Shafts (Set of 5)", 25.99, "Ersatz-Schaefte für DartPfeile"),
-Product("Dart Point Sharpener)", 6.99, "Schleifwerkzeug zum schaerfen der Dartspitzen"),
-Product("Dartboard Surround", 24.99, "Schutzring fuer das Dartboard"),
-Product("Dart Scoreboard", 35.99, "Elektronisches Scoreboard fuer die Dartspiele"),
-Product("Dart Trainingsbuch", 8.99, "Trainingsbuch mit Tipps und Uebungen fuer Dartspieler"),
-Product("Dart Barrels (Set bestehend aus 3 Barrels)", 17.99, "Dart Barrels fuer Dartpfeile"),
-Product("Dart Spitzen(Beutel mit 1000 Spitzen)", 15.99, "Dart Spitzen fuer Dartpfeile ")
+    Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger"),
+    Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch."),
+    Product("Dartcase", 14.99, "Transportkoffer fuer Dartpfeile"),
+    Product("Dartmatte", 29.99, "Rutschfeste Matte fuer praezises werfen."),
+    Product("Dart Flights(Set of 10)", 9.99, "Verschiedene Designs fuer Dartpfeile"),
+    Product("Dart Shafts (Set of 5)", 25.99, "Ersatz-Schaefte für DartPfeile"),
+    Product("Dart Point Sharpener)", 6.99, "Schleifwerkzeug zum schaerfen der Dartspitzen"),
+    Product("Dartboard Surround", 24.99, "Schutzring fuer das Dartboard"),
+    Product("Dart Scoreboard", 35.99, "Elektronisches Scoreboard fuer die Dartspiele"),
+    Product("Dart Trainingsbuch", 8.99, "Trainingsbuch mit Tipps und Uebungen fuer Dartspieler"),
+    Product("Dart Barrels (Set bestehend aus 3 Barrels)", 17.99, "Dart Barrels fuer Dartpfeile"),
+    Product("Dart Spitzen(Beutel mit 1000 Spitzen)", 15.99, "Dart Spitzen fuer Dartpfeile ")
 )
 
 class Shop {
@@ -55,10 +55,9 @@ class Shop {
         return products.sortedBy { it.price }
     }
 
-   fun getProductsSortedAlphabetically(): List<Product> {       // Alphabetische Liste sortiert
-       return products.sortedBy { it.name }
-   }
-
+    fun getProductsSortedAlphabetically(): List<Product> {       // Alphabetische Liste sortiert
+        return products.sortedBy { it.name }
+    }
 
 
     fun addSpecialOffer(quantity: Int?, productName: String?) {     // Eingabe Produktname und Menge

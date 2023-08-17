@@ -1,5 +1,3 @@
-import kotlin.system.exitProcess
-
 val userAccounts: MutableList<Account> = mutableListOf()
 fun main() {
 
@@ -11,7 +9,8 @@ fun main() {
     println()
 
     val shop = Shop()                   // Hier wird der Shop initialisiert
-    val adminAccount = AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
+    val adminAccount =
+        AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
     userAccounts.add(adminAccount)
     val age = 0
     //Kunden Account erstellen und zum Benutzerkonto zugefügt
@@ -24,38 +23,42 @@ fun main() {
     // Schleife läuft solange wie sie true ist,solange ein Customer oder Admin eingeloggt ist
     while (true) {
 
-    println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
-    println("\u001B[36m1. Login")
-    println("\u001B[36m2. Registrierung")
-    println("\u001B[36m3. Beenden")
-    when (readln().toIntOrNull()) {                            // wenn die Bedingung 1 erfüllt wird, gelange ich ins Login
-        1 -> {
-            val loggedInAccount = login()
-            if (loggedInAccount is AdminAccount || loggedInAccount is CustomerAccount) {
-                displayMenu(loggedInAccount, shop)
-            } else {
-                println("Falsche Anmeldedaten.")
+        println("\u001B[36mBenutzer-Login oder Registrierung:")    // Login als Customer oder Admin
+        println("\u001B[36m1. Login")
+        println("\u001B[36m2. Registrierung")
+        println("\u001B[36m3. Beenden")
+        when (readln().toIntOrNull()) {                            // wenn die Bedingung 1 erfüllt wird, gelange ich ins Login
+            1 -> {
+                val loggedInAccount = login()
+                if (loggedInAccount is AdminAccount || loggedInAccount is CustomerAccount) {
+                    displayMenu(loggedInAccount, shop)
+                } else {
+                    println("Falsche Anmeldedaten.")
+                }
+            }
+
+            2 -> {
+                val registeredAccount = register(shop)
+                if (registeredAccount != null) {
+                    userAccounts.add(registeredAccount)
+                    displayMenu(registeredAccount, shop)
+                } else {
+                    println("Benutzerregistrierung fehlgeschlagen.")
+                }
+            }
+
+            3 -> {
+                println("Auf Wiedersehen!")
+                return
+            }
+
+            else -> {
+                println("Ungültige Eingabe.")
             }
         }
-        2 -> {
-            val registeredAccount = register(shop)
-            if (registeredAccount != null) {
-                userAccounts.add(registeredAccount)
-                displayMenu(registeredAccount, shop)
-            } else {
-                println("Benutzerregistrierung fehlgeschlagen.")
-            }
-        }
-        3 -> {
-            println("Auf Wiedersehen!")
-            return
-        }
-        else -> {
-            println("Ungültige Eingabe.")
-        }
-    }
     }
 }
+
 fun login(): Account? {
     val coloredArtPrinter = ColoredArt()
     coloredArtPrinter.printColoredArt()
@@ -300,14 +303,17 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
 
                 6 -> {
 
-                    shop.addSpecialOffer(3, "Produkt A")    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
+                    shop.addSpecialOffer(
+                        3,
+                        "Produkt A"
+                    )    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
                     shop.addSpecialOffer(5, "Produkt B")
                     shop.displaySpecialOffers()
                     displayMenu(account, shop)
                 }
 
                 7 -> {
-                                                        //fügt einen neuen Gutschein-Code hinzu, der im Shop verwendet werden kann. Der Gutschein-Code „CODE123“ hat einen Rabatt von 10 %.
+                    //fügt einen neuen Gutschein-Code hinzu, der im Shop verwendet werden kann. Der Gutschein-Code „CODE123“ hat einen Rabatt von 10 %.
                     shop.addCoupnCode("CODE123", 10.0)
                     shop.addCoupnCode("CODE456", 20.0)
                     shop.displayCouponCodes()
@@ -350,6 +356,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                 }
             }
         }
+
         else -> {
             println("Ungültiger Account. Bitte erneut einloggen.")
             login()
