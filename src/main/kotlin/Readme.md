@@ -38,4 +38,5 @@ Viel Spaß beim Einkaufen und viel Spaß beim Darten!
 Mit freundlichen Grüßen,
 Das Dartshop-Team
 
+Das ist der Link zu meiner Präsentation
 https://app.pitch.com/app/player/0f0871b9-7643-4957-937c-8e770747828a/ff4b9266-f353-4600-bffb-ed16d4790ce9/87dc061a-bdd8-4a40-bb43-a1502336b2a2
