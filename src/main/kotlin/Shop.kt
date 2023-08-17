@@ -9,6 +9,7 @@ class Shop {
     private val couponCodes: MutableMap<String, Double> = mutableMapOf()
     private val specialOffers: MutableMap<String, Int> = mutableMapOf()
 
+
     init {         // Erstellung der Produktliste mit Preis und Bezeichnung
         val product1 = Product("Dart Board", 49.99, "Gutes Dartboard fuer Anfaenger")
         val product2 = Product("Dart Pfeile (Set of 3)", 19.99, "Hochwertige Dartpfeile für den professionellen Gebrauch.")

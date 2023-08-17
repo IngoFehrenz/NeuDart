@@ -14,7 +14,7 @@ fun main() {
     val adminAccount = AdminAccount("admin", "admin", shop)            //  Admin Account erstellen und zum Benutzerkonto zugefügt
     userAccounts.add(adminAccount)
     val age = 0
-    CustomerAccount("customer", "password", age, shop) //Kunden Account erstellen und zum Benutzerkonto zugefügt
+    //Kunden Account erstellen und zum Benutzerkonto zugefügt
     userAccounts.add(CustomerAccount("customer", "password", age, shop))
 
     val coloredArtPrinter = ColoredArt()
@@ -282,7 +282,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
                         println("------------------------------")         // Hier werden die Produkte aufsteigen nach Preis sortiert
-                        displayMenu(account, shop)
+
                     }
                 }
 
@@ -294,16 +294,13 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         println("Preis: ${product.price}")
                         println("Kundenrezension: ${product.review}")
                         println("------------------------------")          // Hier werden die Produkte nach Alphabet sortiert
-                        displayMenu(account, shop)
+
                     }
                 }
 
                 6 -> {
                     shop.displaySpecialOffers()
-                    shop.addSpecialOffer(
-                        3,
-                        "Produkt A"
-                    )    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
+                    shop.addSpecialOffer(3, "Produkt A")    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
                     shop.addSpecialOffer(5, "Produkt B")
                     displayMenu(account, shop)
                 }
