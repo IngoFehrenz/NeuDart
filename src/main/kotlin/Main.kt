@@ -304,10 +304,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                 }
 
                 6 -> {
-                    shop.addSpecialOffer(
-                        3,
-                        "Produkt A"
-                    )    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
+                    shop.addSpecialOffer(3, "Produkt A")    // Das Produkt benötigt zwei Argumente: die Menge (3) und den Namen des Produkts („Produkt A“).
                     shop.addSpecialOffer(5, "Produkt B")
                     shop.displaySpecialOffers()
                     displayMenu(account, shop)
@@ -322,8 +319,8 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                 }
 
                 8 -> {
-                    val zahlungsmethode = Payment()
-                    zahlungsmethode.selectPayment()
+                    val payment = Payment()
+                    payment.selectPayment()
                     displayMenu(account, shop)
 
                 }
@@ -344,7 +341,7 @@ fun displayMenu(account: Account, shop: Shop) {  // Hier wird das Menü vom Shop
                         displayMenu(account, shop)
                     } else {
                         println("Keine Berechtigung. Bitte wählen Sie eine andere Option.")
-                        displayMenu(account, shop)
+
                     }
                 }
 

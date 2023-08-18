@@ -1,1 +1,1 @@
-class Zahlungsmethode(val name: String, val währung: String)
+data class Zahlungsmethode(val name: String, val währung: String)
